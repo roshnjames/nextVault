@@ -10,7 +10,7 @@ const appHolderStyles = () => StyleSheet.create({
     },
     majorContinerStyle: {
         flex: 1,
-        backgroundColor: '#2258cdff',
+        backgroundColor: '#0a111fff',
     },
 });
 
