@@ -1,10 +1,10 @@
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AppHolder from './src/holders/appHolder';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
   return (
     <SafeAreaProvider >
-      <AppHolder />
+      <AppNavigator />
     </SafeAreaProvider>
   );
 };
