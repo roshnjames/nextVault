@@ -20,7 +20,7 @@ const AppNavigator = () => {
         />
         <View style={styles.safeAreaViewStyle}>
           <Stack.Navigator
-            initialRouteName="home"
+            initialRouteName="schedule"
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen name="home" component={HomeScreen} />
