@@ -8,11 +8,6 @@ const ScheduleScreen = () => {
     return (
         <View style={scheduleModel.styles.majorContainer}>
             <View style={scheduleModel.styles.innerContainer}>
-                <View style={scheduleModel.styles.headerContainer}>
-                    <Text style={scheduleModel.styles.heading}>
-                        {scheduleModel.scheduleScreenTexts.HEADING}
-                    </Text>
-                </View>
                 <View style={scheduleModel.styles.calendarContainer}>
                     <Calendar
                         onDayPress={(day) =>
@@ -28,9 +23,7 @@ const ScheduleScreen = () => {
                         <TouchableOpacity
                             disabled={scheduleModel.selectedDate === null}
                             style={scheduleModel.styles.addTaskButtonStyles}
-                            onPress={() => scheduleModel.navigation.navigate('home', {
-                                date: scheduleModel.selectedDate
-                            })}
+                            onPress={() => scheduleModel.handleAddTaskPress()}
                         >
                             {scheduleModel.selectedDate && <Image
                                 source={scheduleModel.scheduleScreenButtons.ADD_TASK}
