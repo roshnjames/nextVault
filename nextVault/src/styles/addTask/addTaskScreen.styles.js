@@ -1,9 +1,19 @@
 import { StyleSheet } from "react-native";
 
 const addTaskScreenStyles = () => StyleSheet.create({
+    loadingOverlay:{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 2, 5, 0.5)'
+    },
     majorContainer: {
         flex: 1,
-        backgroundColor: 'rgb(71, 141, 195)',
+        backgroundColor: 'rgb(7, 4, 41)',
         alignItems:'center',
         justifyContent:'center'
     },
@@ -11,31 +21,29 @@ const addTaskScreenStyles = () => StyleSheet.create({
         flex:0.99,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent:'space-around',
+        justifyContent:'flex-start',
         width: '98%',
         height:'98%',
-        borderRadius:'2%',
         padding:'3%',
-        backgroundColor:'rgb(22, 11, 65)'
     },
     contentHolder:{
-        flex:1,
+        flex:0.9,
         paddingTop:'5%',
         backgroundColor:'rgb(22, 11, 65)',
         width:'100%',
-        height:'100%',
         alignItems:'center',
         justifyContent:'flex-start',
-        gap:'5%'
+        borderRadius:10,
+        gap:'2.5%'
     },
     taskNameHolder:{
-        flex:0.1,
+        flex:0.13,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-evenly',
     },
     addTaskLabelText:{
-        flex:0.4,
+        flex:0.35,
         height:'100%',
         fontFamily:'monospace',
         color:'rgb(32, 167, 171)',
@@ -75,11 +83,39 @@ const addTaskScreenStyles = () => StyleSheet.create({
     },
     addTaskCameraBtn:{
         width: '60%',
-        height: 50,
+        height: '70%',
         backgroundColor: 'blue',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:20
+    },
+    addTaskImageCaptured:{
+        height:'70%',
+        width:'80%',
+        backgroundColor:'cyan',
+        borderRadius:10
+    },
+    addTaskSubmitBtnHolder:{
+        flex:0.1,
+        width:'100%',
+        alignItems:'center',
+        justifyContent:'flex-end',
+    },
+    addTaskBtn:{
+        height:'85%',
+        width:'70%',
+        alignItems:'center',
+        justifyContent:'center',
+        borderWidth:2,
+        borderColor:'rgb(32, 167, 171)',
+        borderRadius:15
+    },
+    addTaskBtnText:{
+        fontSize:20,
+        fontFamily:'Times New Roman',
+        fontStyle:'italic',
+        fontWeight:'bold',
+        color:'rgb(32, 167, 171)'
     }
 });
 export default addTaskScreenStyles;

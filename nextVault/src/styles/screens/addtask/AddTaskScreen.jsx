@@ -1,11 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
-import { Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import useAddTaskViewModel from '../../../viewmodels/addTask/useAddTaskViewModel';
 
 const AddTaskScreen = ({ route }) => {
     const addTaskModel = useAddTaskViewModel({ route });
 
     return (
+
         <View style={addTaskModel.styles.majorContainer}>
             <View style={addTaskModel.styles.innerContainer}>
                 <View style={addTaskModel.styles.contentHolder}>
@@ -29,7 +30,7 @@ const AddTaskScreen = ({ route }) => {
                             <Picker
                                 style={addTaskModel.styles.addTaskPicker}
                                 selectedValue={addTaskModel.addTaskPriority}
-                                onValueChange={val => addTaskModel.setAddTaskPriority(addTaskModel.addTaskPriorityVals[val - 1])}
+                                onValueChange={val => addTaskModel.setAddTaskPriority(addTaskModel.addTaskPriorityVals[val - 1].value)}
                             >
                                 {addTaskModel.addTaskPriorityVals.map((item, index) => (
                                     <Picker.Item
@@ -68,30 +69,62 @@ const AddTaskScreen = ({ route }) => {
                             />
                         </View>
                     </View>
-                    <View style={addTaskModel.styles.taskNameHolder}>
+                    <View style={[addTaskModel.styles.taskNameHolder, addTaskModel.addTaskImageCaptured && { flex: 0.35 }]}>
                         <Text style={addTaskModel.styles.addTaskLabelText}>
                             {addTaskModel.addTaskScreenTexts.TASK_IMAGE}
                         </Text>
-                        <View style={[addTaskModel.styles.dropDownPicker, { flexDirection: 'row' }]}>
-                            {addTaskModel.addTaskImageCaptured === null && <Text style={addTaskModel.styles.addTaskSwitchText}>
-                                {`Alarm  ${addTaskModel.addTaskAlertEnabled ? addTaskModel.ON_OFF.ONN : addTaskModel.ON_OFF.OFF}`}
-                            </Text>
-                            }
+                        <View style={[addTaskModel.styles.dropDownPicker, { flexDirection: 'column', gap: '3%' }]}>
                             <TouchableOpacity
-                                style={addTaskModel.styles.addTaskCameraBtn}
+                                style={[addTaskModel.styles.addTaskCameraBtn, , addTaskModel.addTaskImageCaptured !== null && { height: '17%' }]}
                                 onPress={addTaskModel.addTaskImageSaver}
                             >
-                                <Text>{addTaskModel.addTaskScreenTexts.TASK_IMAGE_CAPTURE}</Text>
+                                <Text>
+                                    {addTaskModel.addTaskImageCaptured !== null ?
+                                        addTaskModel.addTaskScreenTexts.TASK_RECAPTURE :
+                                        addTaskModel.addTaskScreenTexts.TASK_IMAGE_CAPTURE
+                                    }</Text>
                             </TouchableOpacity>
+                            {console.log('image desti :::', `file://${addTaskModel.addTaskImageCaptured}`)}
+                            {addTaskModel.addTaskImageCaptured !== null &&
+                                <Image
+                                    source={{ uri: `file://${addTaskModel.addTaskImageCaptured}` }}
+                                    style={addTaskModel.styles.addTaskImageCaptured}
+                                />
+
+                            }
                         </View>
                     </View>
-
-                    <Text style={addTaskModel.styles.addTaskScreenTextStyle}>
-                        date{addTaskModel.date}
-                    </Text>
+                    <View style={addTaskModel.styles.taskNameHolder}>
+                        <Text style={addTaskModel.styles.addTaskLabelText}>
+                            {addTaskModel.addTaskScreenTexts.TASK_TAG}
+                        </Text>
+                        <View style={addTaskModel.styles.dropDownPicker}>
+                            <Picker
+                                style={addTaskModel.styles.addTaskPicker}
+                                selectedValue={addTaskModel.addTaskTag}
+                                onValueChange={val => addTaskModel.setAddTaskTag(addTaskModel.addTaskPriorityVals[val - 1].value)}
+                            >
+                                {addTaskModel.addTaskPriorityVals.map((item, index) => (
+                                    <Picker.Item
+                                        key={index} addTask
+                                        label={item.label}
+                                        value={item.value}
+                                    />
+                                ))}
+                            </Picker>
+                        </View>
+                    </View>
+                </View>
+                <View style={addTaskModel.styles.addTaskSubmitBtnHolder}>
+                    <TouchableOpacity
+                        style={addTaskModel.styles.addTaskBtn}
+                        onPress={addTaskModel.handleTaskSubmit}>
+                        <Text style={addTaskModel.styles.addTaskBtnText}>
+                            {addTaskModel.commonTexts.SUBMIT}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-
         </View>
     )
 

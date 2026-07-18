@@ -1,10 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar, View } from 'react-native';
+import { useContext, useEffect } from 'react';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
-import { TaskContextProvider } from '../context/taskDetails';
+import { TaskContext } from '../context/taskDetails';
+import { initDatabase } from '../database/database';
 import HomeScreen from "../screens/homescreen/HomeScreen";
 import ScheduleScreen from '../screens/schedule/ScheduleScreen';
 import appHolderStyles from '../styles/navigator/appNavigator.styles';
@@ -14,8 +16,14 @@ const Stack = createNativeStackNavigator();
 const styles = appHolderStyles();
 
 const AppNavigator = () => {
+
+  const {loading} = useContext(TaskContext);
+
+  useEffect(()=>{
+    initDatabase();
+  },[]);
+
   return (
-    <TaskContextProvider>
       <NavigationContainer>
         <SafeAreaView style={styles.safeAreaViewStyle}>
           <StatusBar
@@ -35,9 +43,20 @@ const AppNavigator = () => {
 
             <BottomMenu />
           </View>
+          {loading && (
+                <View style={{position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 2, 5, 0.5)'}}>
+                    <ActivityIndicator size="large" color="#3cf2f2" />
+                </View>
+            )}
         </SafeAreaView>
       </NavigationContainer>
-    </TaskContextProvider>
   );
 };
 

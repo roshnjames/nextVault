@@ -3,6 +3,13 @@ export const ON_OFF ={
     OFF:'OFF'
 };
 
+export const commonTexts = {
+    SUBMIT:"Submit",
+    CANCELLED : "Cancelled",
+    ERROR_SOMETHING : "Something went wrong!",
+    IMAGE_FAILED:'Failed to save image!'
+};
+
 export const bottomMenuTexts = {
     CURRENT_TASK: "Tasks",
     EDIT_TASKS: "Modify",
@@ -24,5 +31,7 @@ export const addTaskScreenTexts = {
     TASK_PRIORITY:"Priority",
     TASK_ALERT:"Alert Me",
     TASK_IMAGE:"Take picture",
-    TASK_IMAGE_CAPTURE:'Open Camera'
+    TASK_IMAGE_CAPTURE:'Open Camera',
+    TASK_RECAPTURE:'Recapture',
+    TASK_TAG:'Tag'
 }
