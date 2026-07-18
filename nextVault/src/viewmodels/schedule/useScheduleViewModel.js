@@ -29,7 +29,7 @@ const useScheduleViewModel = () => {
     };
 
     const handleAddTaskPress = () => {
-        navigation.navigate('home', {
+        navigation.navigate('addTask', {
             date: selectedDate
         })
     };

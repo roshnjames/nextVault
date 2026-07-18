@@ -10,19 +10,6 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    headerContainer: {
-        width: '100%',
-        height: "8%",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2%'
-    },
-    heading: {
-        fontSize: height * 0.025,
-        fontWeight: 'bold',
-        color: '#879caaff',
-        lineHeight: height * 0.028,
-    },
     calendarContainer: {
         marginVertical: height * 0.01,
         backgroundColor: '#ffffff',

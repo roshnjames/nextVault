@@ -11,3 +11,7 @@ export const scheduleScreenTexts ={
     DELETE_TASK:"Delete all tasks",
     EDIT_TASK:"Edit task"
 };
+
+export const addTaskScreenTexts = {
+    HEADING:"Add new Task"
+}

@@ -20,7 +20,8 @@ const headerStyles = (height,width) => StyleSheet.create({
     },
     headerTextStyle:{
         fontSize: 25,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:'rgb(0, 0, 0)'
     }
 });
 
