@@ -17,7 +17,8 @@ const AddTaskScreen = ({ route }) => {
                         <TextInput
                             style={addTaskModel.styles.textInputBox}
                             // placeholder='Enter task'
-                            onChangeText={name => addTaskModel.addTaskNewTask.current = name}
+                            value={addTaskModel.addTaskNewTask}
+                            onChangeText={addTaskModel.setAddTaskNewTask}
                             maxLength={50}
                             multiline
                         />
@@ -49,7 +50,8 @@ const AddTaskScreen = ({ route }) => {
                         <TextInput
                             style={[addTaskModel.styles.textInputBox, { textAlignVertical: 'top' }]}
                             // placeholder='Enter details'
-                            onChangeText={details => addTaskModel.addTaskNewTaskDetails.current = details}
+                            value={addTaskModel.addTaskNewTaskDetails}
+                            onChangeText={addTaskModel.setAddTaskNewTaskDetails}
                             maxLength={150}
                             multiline
                         />
@@ -84,7 +86,6 @@ const AddTaskScreen = ({ route }) => {
                                         addTaskModel.addTaskScreenTexts.TASK_IMAGE_CAPTURE
                                     }</Text>
                             </TouchableOpacity>
-                            {console.log('image desti :::', `file://${addTaskModel.addTaskImageCaptured}`)}
                             {addTaskModel.addTaskImageCaptured !== null &&
                                 <Image
                                     source={{ uri: `file://${addTaskModel.addTaskImageCaptured}` }}

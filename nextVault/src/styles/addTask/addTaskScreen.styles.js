@@ -54,9 +54,10 @@ const addTaskScreenStyles = () => StyleSheet.create({
     textInputBox:{
         flex:0.6,
         height:'100%',
-        borderWidth:2,
+        borderWidth:0.5,
         borderColor:'rgb(26, 153, 115)',
         borderRadius:10,
+        color:'rgb(27, 150, 159)'
     },
     addTaskScreenTextStyle:{
         fontSize:18,
@@ -84,7 +85,7 @@ const addTaskScreenStyles = () => StyleSheet.create({
     addTaskCameraBtn:{
         width: '60%',
         height: '70%',
-        backgroundColor: 'blue',
+        backgroundColor: 'rgb(44, 55, 108)',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:20
