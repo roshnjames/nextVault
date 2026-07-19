@@ -1,0 +1,58 @@
+import { StyleSheet } from "react-native";
+
+const popupComponentStyles = () => StyleSheet.create({
+    safeArea:{
+        flex:1
+    },
+    majorContainer : {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(165, 188, 192, 0.5)',
+    },
+    mainContainer:{
+        minHeight: '35%',
+        width:'85%',
+        backgroundColor:'rgb(7, 13, 74)',
+        borderWidth:1,
+        borderColor:'cyan',
+        borderRadius:'5%',
+        padding:'5%',
+        alignItems:'center',
+        justifyContent:'space-between',
+        gap:'2%'
+    },
+    iconHolder:{
+        flex:0.15,
+        width:'100%',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    infoIcon:{
+        height:'99%',
+        width:'20%',
+        resizeMode:'contain',
+    },
+    textHolder:{
+        flex:0.6,
+        width:'100%',
+        alignItems:'center',
+        justifyContent:'space-between',
+        padding:'3%',
+    },
+    popupText:{
+        fontFamily:'monospace',
+        fontSize:18,
+        color:'cyan'
+    },
+    buttonHolder:{
+        flex:0.25,
+        width:'100%',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-evenly',
+        backgroundColor:'green'
+    }
+});
+
+export default popupComponentStyles;

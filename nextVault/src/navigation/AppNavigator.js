@@ -3,8 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext, useEffect } from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
+import PopupComponent from '../components/PopupComponent';
 import { TaskContext } from '../context/taskDetails';
 import { initDatabase } from '../database/database';
 import HomeScreen from "../screens/homescreen/HomeScreen";
@@ -18,6 +20,7 @@ const styles = appHolderStyles();
 const AppNavigator = () => {
 
   const { loading } = useContext(TaskContext);
+  const popup = true;
 
   useEffect(() => {
     initDatabase();
@@ -43,6 +46,8 @@ const AppNavigator = () => {
 
           <BottomMenu />
         </View>
+        <Toast />
+        {popup && <PopupComponent visible={true}/>}
         {loading && (
           <View style={{
             position: 'absolute',

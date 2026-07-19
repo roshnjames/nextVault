@@ -9,6 +9,10 @@ export const bottomMenuImages = {
     CALENDAR: require('../../assets/BottomMenu/calendar.gif'),
 };
 
+export const popupComponentImages = {
+    INFO_ICON: require('../../assets/PopupComponent/info.png'),
+};
+
 export const scheduleScreenButtons = {
     ADD_TASK: require('../../assets/Schedule/plus.png'),
     DELETE_TASK: require('../../assets/Schedule/trash.png'),

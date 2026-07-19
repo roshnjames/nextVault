@@ -1,8 +1,9 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import RNFS from 'react-native-fs';
 import { launchCamera } from 'react-native-image-picker';
+import Toast from 'react-native-toast-message';
 import { TaskContext } from '../../context/taskDetails';
 import { insertNewTask } from '../../database/database';
 import { addTaskScreenTexts, commonTexts, ON_OFF } from '../../strings/textLoader';
@@ -110,7 +111,25 @@ const useAddTaskViewModel = ({ route }) => {
                 const res = await insertNewTask(newTaskCreated.current);
                 if (res.length > 0) {
                     resetTaskData();
-                    Alert.alert('Task saved!')
+
+                    Toast.show({
+                        type:'success',
+                        position:'bottom',
+                        text1:'Task Saved!',
+                        visibilityTime:3000,
+                        avoidKeyboard:true,
+                        bottomOffset:250
+                        
+                    });
+
+                    navigation.dispatch(
+                        CommonActions.reset({
+                            index:0,
+                            routes:[{
+                                name:'home'
+                            }]
+                        })
+                    );
                 } else {
                     Alert.alert('Failed...')
                 }
