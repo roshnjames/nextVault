@@ -1,4 +1,4 @@
-import { Image, Modal, Text, View } from "react-native";
+import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { popupComponentImages } from "../images/imageLoader";
 import popupComponentStyles from "../styles/popupComponent/popupComponent.styles";
@@ -6,8 +6,10 @@ import popupComponentStyles from "../styles/popupComponent/popupComponent.styles
 const PopupComponent = ({
     visible = false,
     buttonCount = 1,
-    popupText = ''
+    popupText = '',
+    setClosePopup
 }) => {
+
     const styles = popupComponentStyles();
     return (
         <Modal
@@ -29,7 +31,12 @@ const PopupComponent = ({
                             <Text style={styles.popupText}>renderedddd</Text>
                         </View>
                         <View style={styles.buttonHolder}>
-                            <Text>isoifisifjsoij</Text>
+                            <TouchableOpacity 
+                            style={styles.buttonStyle}
+                            onPress={()=>setClosePopup(false)}
+                            >
+                            <Text style={styles.buttonText}>OK</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     

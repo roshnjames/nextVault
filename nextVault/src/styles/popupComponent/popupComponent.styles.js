@@ -52,6 +52,19 @@ const popupComponentStyles = () => StyleSheet.create({
         alignItems:'center',
         justifyContent:'space-evenly',
         backgroundColor:'green'
+    },
+    buttonStyle:{
+        flex:1,
+        height:'100%',
+        backgroundColor:'cyan',
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:5
+    },
+    buttonText:{
+        fontFamily:'monospace',
+        fontSize:18,
+        color:'white'
     }
 });
 
