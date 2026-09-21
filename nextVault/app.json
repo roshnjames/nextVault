@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.roshnjames.nextVault"
+      "bundleIdentifier": "com.next.nextVault"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.roshnjames.nextVault"
+      "package": "com.next.nextVault"
     },
     "web": {
       "favicon": "./assets/travelling.png"

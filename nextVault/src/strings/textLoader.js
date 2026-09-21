@@ -1,3 +1,17 @@
+export const ON_OFF ={
+    ONN:'ON',
+    OFF:'OFF'
+};
+
+export const commonTexts = {
+    OK:'OK',
+    CANCEL:'Cancel',
+    SUBMIT:"Submit",
+    CANCELLED : "Cancelled",
+    ERROR_SOMETHING : "Something went wrong!",
+    IMAGE_FAILED:'Failed to save image!'
+};
+
 export const bottomMenuTexts = {
     CURRENT_TASK: "Tasks",
     EDIT_TASKS: "Modify",
@@ -13,5 +27,13 @@ export const scheduleScreenTexts ={
 };
 
 export const addTaskScreenTexts = {
-    HEADING:"Add new Task"
+    HEADING:"Add new Task",
+    TASK_NAME:"Task Name",
+    TASK_DESC:"Details",
+    TASK_PRIORITY:"Priority",
+    TASK_ALERT:"Alert Me",
+    TASK_IMAGE:"Take picture",
+    TASK_IMAGE_CAPTURE:'Open Camera',
+    TASK_RECAPTURE:'Recapture',
+    TASK_TAG:'Tag'
 }

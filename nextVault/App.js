@@ -1,10 +1,13 @@
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TaskContextProvider } from './src/context/taskDetails';
 import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
   return (
     <SafeAreaProvider >
-      <AppNavigator />
+      <TaskContextProvider>
+        <AppNavigator />
+      </TaskContextProvider>
     </SafeAreaProvider>
   );
 };
