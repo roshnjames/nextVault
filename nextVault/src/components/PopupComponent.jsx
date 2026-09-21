@@ -1,6 +1,7 @@
 import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { popupComponentImages } from "../images/imageLoader";
+import { commonTexts } from "../strings/textLoader";
 import popupComponentStyles from "../styles/popupComponent/popupComponent.styles";
 
 const PopupComponent = ({
@@ -28,15 +29,23 @@ const PopupComponent = ({
                             />
                         </View>
                         <View style={styles.textHolder}>
-                            <Text style={styles.popupText}>renderedddd</Text>
+                            <Text style={styles.popupText} adjustsFontSizeToFit >{popupText}</Text>
                         </View>
                         <View style={styles.buttonHolder}>
                             <TouchableOpacity 
                             style={styles.buttonStyle}
                             onPress={()=>setClosePopup(false)}
                             >
-                            <Text style={styles.buttonText}>OK</Text>
+                            <Text style={styles.buttonText}>{commonTexts.OK}</Text>
                             </TouchableOpacity>
+                            {buttonCount === 2 && (
+                                <TouchableOpacity 
+                                style={styles.buttonStyle}
+                                onPress={()=>setClosePopup(false)}
+                                >
+                                <Text style={styles.buttonText}>{commonTexts.CANCEL}</Text>
+                                </TouchableOpacity>
+                            )}
                         </View>
                     </View>
                     

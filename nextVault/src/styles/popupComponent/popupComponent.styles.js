@@ -37,34 +37,36 @@ const popupComponentStyles = () => StyleSheet.create({
         flex:0.6,
         width:'100%',
         alignItems:'center',
-        justifyContent:'space-between',
+        justifyContent:'center',
         padding:'3%',
     },
     popupText:{
         fontFamily:'monospace',
         fontSize:18,
-        color:'cyan'
+        color:'cyan',
+        textAlign:'center'
     },
     buttonHolder:{
         flex:0.25,
+        flexDirection:'row',
+        gap:'3%',
         width:'100%',
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'space-evenly',
-        backgroundColor:'green'
+        justifyContent:'space-between',
     },
     buttonStyle:{
         flex:1,
-        height:'100%',
+        height:'90%',
         backgroundColor:'cyan',
         alignItems:'center',
         justifyContent:'center',
-        borderRadius:5
+        borderRadius:25
     },
     buttonText:{
         fontFamily:'monospace',
         fontSize:18,
-        color:'white'
+        color:'black'
     }
 });
 

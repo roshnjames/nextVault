@@ -1,5 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
 import { Image, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import PopupComponent from '../../../components/PopupComponent';
 import useAddTaskViewModel from '../../../viewmodels/addTask/useAddTaskViewModel';
 
 const AddTaskScreen = ({ route }) => {
@@ -12,7 +13,7 @@ const AddTaskScreen = ({ route }) => {
                 <View style={addTaskModel.styles.contentHolder}>
                     <View style={addTaskModel.styles.taskNameHolder}>
                         <Text style={addTaskModel.styles.addTaskLabelText}>
-                            {addTaskModel.addTaskScreenTexts.TASK_NAME}
+                            {addTaskModel.addTaskScreenTexts.TASK_NAME}*
                         </Text>
                         <TextInput
                             style={addTaskModel.styles.textInputBox}
@@ -25,7 +26,7 @@ const AddTaskScreen = ({ route }) => {
                     </View>
                     <View style={addTaskModel.styles.taskNameHolder}>
                         <Text style={addTaskModel.styles.addTaskLabelText}>
-                            {addTaskModel.addTaskScreenTexts.TASK_PRIORITY}
+                            {addTaskModel.addTaskScreenTexts.TASK_PRIORITY}*
                         </Text>
                         <View style={addTaskModel.styles.dropDownPicker}>
                             <Picker
@@ -126,6 +127,14 @@ const AddTaskScreen = ({ route }) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            {addTaskModel.popupVisible && (
+                <PopupComponent
+                    visible={addTaskModel.popupVisible}
+                    // buttonCount={2}
+                    popupText={addTaskModel.popupText}
+                    setClosePopup={addTaskModel.setPopupVisible}
+                />
+            )}
         </View>
     )
 

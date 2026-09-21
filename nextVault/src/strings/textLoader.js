@@ -4,6 +4,8 @@ export const ON_OFF ={
 };
 
 export const commonTexts = {
+    OK:'OK',
+    CANCEL:'Cancel',
     SUBMIT:"Submit",
     CANCELLED : "Cancelled",
     ERROR_SOMETHING : "Something went wrong!",

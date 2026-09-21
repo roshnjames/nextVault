@@ -13,7 +13,7 @@ import { addTaskPriorityVals } from '../../utils/dropDownValues';
 const useAddTaskViewModel = ({ route }) => {
     const navigation = useNavigation();
     const date = route?.params.date;
-    const { setHeader, setLoading } = useContext(TaskContext);
+    const { setHeader, setLoading, setPopupVisible, setPopupText, popupVisible, popupText } = useContext(TaskContext);
     const styles = addTaskScreenStyles();
 
     const [addTaskNewTask, setAddTaskNewTask] = useState('');
@@ -131,15 +131,14 @@ const useAddTaskViewModel = ({ route }) => {
                         })
                     );
                 } else {
-                    Alert.alert('Failed...')
-                }
+                    setPopupText('Failed to save task!');
+                    throw new Error('Failed');             }
             } else {
-                Alert.alert('Please enter the data');
+                setPopupText('Please enter the required fields!');
+                throw new Error('fields');
             }
-
-
         } catch (error) {
-            console.error('error occurred in submitting', error);
+            setPopupVisible(true);
         } finally {
             setLoading(false);
         }
@@ -167,7 +166,10 @@ const useAddTaskViewModel = ({ route }) => {
         commonTexts,
         handleTaskSubmit,
         addTaskTag,
-        setAddTaskTag
+        setAddTaskTag,
+        setPopupVisible,
+        popupVisible,
+        popupText
     }
 
 }

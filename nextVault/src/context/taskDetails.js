@@ -6,6 +6,7 @@ export const TaskContextProvider = ({children}) => {
     const [header, setHeader] = useState('nexVault');
     const [loading,setLoading] = useState(false);
     const [popupVisible,setPopupVisible] = useState(false);
+    const [popupText,setPopupText] = useState('');
 
     return (
         <TaskContext.Provider
@@ -15,7 +16,9 @@ export const TaskContextProvider = ({children}) => {
                 loading,
                 setLoading,
                 popupVisible,
-                setPopupVisible
+                setPopupVisible,
+                popupText,
+                setPopupText
             }}
         >
             {children}
