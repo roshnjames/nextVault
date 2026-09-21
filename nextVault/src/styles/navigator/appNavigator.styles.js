@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const appHolderStyles = () => StyleSheet.create({
     statusBarStyle: {
-        backgroundColor: "#ffffffff",
+        backgroundColor: "rgb(255, 255, 255)",
         barStyle: "dark-content"
     },
     safeAreaViewStyle:{
