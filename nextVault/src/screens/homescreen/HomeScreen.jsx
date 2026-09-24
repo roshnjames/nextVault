@@ -1,19 +1,38 @@
-import { useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 import { Text, View } from "react-native";
 import { fetchAllData } from "../../database/database";
-import homeScreenStyles from "../../styles/screens/homescreen/homeScreen.styles";
+import useHomeScreenViewModel from "../../viewmodels/homeScreen/useHomeScreenViewModel";
 
 const HomeScreen = () => {
-    const styles = homeScreenStyles();
+    const homeScreenModel = useHomeScreenViewModel();
 
-    useEffect(()=>{
-        fetchAllData('next_tasks');
-    },[])
-    return(
-        <View style={styles.majorContainer}>
-            <Text>
-                homescreen rendered
-            </Text>
+    useFocusEffect( 
+        useCallback(()=>{
+            homeScreenModel.setHeader(homeScreenModel.homeScreenTexts.YOUR_TASKS);
+            fetchAllData('next_tasks');
+        },[])
+    );
+
+    return (
+        <View style={homeScreenModel.styles.majorContainer}>
+            <View style={homeScreenModel.styles.mainContainer}>
+                <View style={homeScreenModel.styles.filterContainer}>
+                    <Text style={homeScreenModel.styles.filterText}>
+                        Filter Tasks
+                    </Text>
+                    <View style={homeScreenModel.styles.filterButtonContainer}>
+                        <Text style={homeScreenModel.styles.filterText}>
+                            Filter Tasks
+                        </Text>
+                    </View>
+                </View>
+                <View style={homeScreenModel.styles.tasksCOntainer}>
+                    <Text>
+                        homescreen rendered
+                    </Text>
+                </View>
+            </View>
         </View>
     );
 };
