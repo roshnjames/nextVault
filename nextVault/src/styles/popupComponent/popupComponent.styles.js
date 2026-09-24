@@ -51,7 +51,6 @@ const popupComponentStyles = () => StyleSheet.create({
         flexDirection:'row',
         gap:'3%',
         width:'100%',
-        flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
     },

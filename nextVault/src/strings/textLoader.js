@@ -36,4 +36,9 @@ export const addTaskScreenTexts = {
     TASK_IMAGE_CAPTURE:'Open Camera',
     TASK_RECAPTURE:'Recapture',
     TASK_TAG:'Tag'
-}
+};
+
+export const homeScreenTexts = {
+    YOUR_TASKS:"Your Tasks",
+    TASKS:"Tasks"
+};
