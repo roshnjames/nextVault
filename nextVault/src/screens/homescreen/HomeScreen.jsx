@@ -14,12 +14,24 @@ const HomeScreen = () => {
         },[])
     );
 
-    return(
+    return (
         <View style={homeScreenModel.styles.majorContainer}>
             <View style={homeScreenModel.styles.mainContainer}>
-                <Text>
-                    homescreen rendered
-                </Text>
+                <View style={homeScreenModel.styles.filterContainer}>
+                    <Text style={homeScreenModel.styles.filterText}>
+                        Filter Tasks
+                    </Text>
+                    <View style={homeScreenModel.styles.filterButtonContainer}>
+                        <Text style={homeScreenModel.styles.filterText}>
+                            Filter Tasks
+                        </Text>
+                    </View>
+                </View>
+                <View style={homeScreenModel.styles.tasksCOntainer}>
+                    <Text>
+                        homescreen rendered
+                    </Text>
+                </View>
             </View>
         </View>
     );
