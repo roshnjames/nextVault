@@ -1,27 +1,23 @@
-import SQLite from 'react-native-sqlite-storage';
-
-SQLite.enablePromise(true);
+import * as SQLite from 'expo-sqlite';
 
 let db = null;
 
 const createDatabase = async () => {
+    console.log('createDatabase called...');
     if (!db) {
-
-        return SQLite.openDatabase(
-            {
-                name: 'nextvault_data.db',
-                location: 'default'
-            }
-        )
+        console.log('DATABASE NOT CREATED, CREATING NOW...');
+        db = await SQLite.openDatabaseAsync('nextvault_data.db');
     }
+    console.log('RETURNING DB INSTANCE...');
+    return db;
 };
 
 export const initDatabase = async () => {
     try {
-        db = await createDatabase();
+        const database = await createDatabase();
 
-        await db.executeSql(
-            `CREATE TABLE IF NOT EXISTS next_tasks (
+        await database.execAsync(`
+            CREATE TABLE IF NOT EXISTS next_tasks (
                 task_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 task_name TEXT NOT NULL,
                 task_priority INTEGER NOT NULL,
@@ -31,8 +27,8 @@ export const initDatabase = async () => {
                 task_date TEXT NOT NULL,
                 task_tag TEXT NOT NULL,
                 task_is_completed INTEGER DEFAULT 0
-            );`
-        );
+            );
+        `);
 
         console.log('db and table created');
     } catch (error) {
@@ -40,10 +36,19 @@ export const initDatabase = async () => {
     }
 };
 
-export const insertNewTask = async(taskData) => {
-    console.log('insert date recieved :',JSON.stringify(taskData))
-    return await db.executeSql(
-        `INSERT INTO next_tasks(
+export const insertNewTask = async (taskData) => {
+    try {
+        console.log(
+            'insert data received:',
+            JSON.stringify(taskData)
+        );
+
+        const database = await createDatabase();
+
+        console.log('database instance:', database);
+
+        const result = await database.runAsync(
+            `INSERT INTO next_tasks (
                 task_name,
                 task_priority,
                 task_details,
@@ -51,24 +56,41 @@ export const insertNewTask = async(taskData) => {
                 task_image,
                 task_date,
                 task_tag
-        )
-        VALUES(?,?,?,?,?,?,?)`,
-        [
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
             taskData.task_name,
             taskData.task_priority,
             taskData.task_details,
-            taskData.task_alert,
-            taskData.task_image,
+            taskData.task_alert ?? 0,
+            taskData.task_image ?? null,
             taskData.task_date,
             taskData.task_tag
-        ]
-    );
+        );
+
+        console.log('task inserted:', result);
+
+        return result;
+    } catch (error) {
+        console.error('Task insertion error:', error);
+        throw error;
+    }
 };
 
-export const fetchAllData = async(table_name) => {
-    console.log('fetching alldata',table_name)
-    const [result] = await db.executeSql(
-        `SELECT * FROM ${table_name}`
-    );
-    console.log('result fetched',result.rows.raw());
-}
+export const fetchAllTasks = async (table_name = 'next_tasks') => {
+    try {
+        console.log('fetching all tasks:', table_name);
+
+        const database = await createDatabase();
+
+        const result = await database.getAllAsync(
+            `SELECT * FROM ${table_name}`
+        );
+
+        console.log('result fetched:', result);
+
+        return result;
+    } catch (error) {
+        console.error('Data fetching error:', error);
+        throw error;
+    }
+};

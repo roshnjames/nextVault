@@ -7,6 +7,7 @@ export const TaskContextProvider = ({children}) => {
     const [loading,setLoading] = useState(false);
     const [popupVisible,setPopupVisible] = useState(false);
     const [popupText,setPopupText] = useState('');
+    const [tasks,setTasks] = useState([]);
 
     return (
         <TaskContext.Provider
@@ -18,7 +19,9 @@ export const TaskContextProvider = ({children}) => {
                 popupVisible,
                 setPopupVisible,
                 popupText,
-                setPopupText
+                setPopupText,
+                tasks,
+                setTasks
             }}
         >
             {children}

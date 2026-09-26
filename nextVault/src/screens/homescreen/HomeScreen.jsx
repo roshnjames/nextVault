@@ -1,7 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
 import { Text, View } from "react-native";
-import { fetchAllData } from "../../database/database";
 import useHomeScreenViewModel from "../../viewmodels/homeScreen/useHomeScreenViewModel";
 
 const HomeScreen = () => {
@@ -10,7 +9,6 @@ const HomeScreen = () => {
     useFocusEffect( 
         useCallback(()=>{
             homeScreenModel.setHeader(homeScreenModel.homeScreenTexts.YOUR_TASKS);
-            fetchAllData('next_tasks');
         },[])
     );
 
