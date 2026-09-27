@@ -14,6 +14,32 @@ const homeScreenStyles = () => StyleSheet.create({
         backgroundColor: '#08031bff',
         alignItems:'center',
     },
+    noTaskContainer:{
+        flex:1,
+        width:'100%',
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    taskAddButton:{
+        width: 'auto',
+        height: 'auto',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    addtaskItemImage:{
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+    },
+    addTaskText:{
+        fontFamily:'monospace',
+        fontWeight:'bold',
+        fontFamily:'normal',
+        fontSize:18,
+        color:'cyan',
+        marginTop:'2%'
+    },
     filterContainer:{
         flex:0.05,
         flexDirection:'row',

@@ -6,21 +6,24 @@ import { headerImages } from "../images/imageLoader";
 import headerStyles from "../styles/screens/Header/Header.styles";
 
 const Header = () => {
-    const { header } = useContext(TaskContext);
+    const { header, disableBackButton } = useContext(TaskContext);
     const {height,width} = useWindowDimensions();
     const styles = headerStyles(height,width);
     const navigation = useNavigation();
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
-                <TouchableOpacity
-                    onPress={()=>navigation?.goBack()}
-                >
-                    <Image
-                        source={headerImages.BACK_ARROW}
-                        style={styles.backArrowStyle}
-                    />
-                </TouchableOpacity>
+                <View>
+                    {!disableBackButton && <TouchableOpacity
+                        onPress={()=>navigation?.goBack()}
+                    >
+                        <Image
+                            source={headerImages.BACK_ARROW}
+                            style={styles.backArrowStyle}
+                        />
+                    </TouchableOpacity>
+                    }
+                </View>
                 <Text style={styles.headerTextStyle}>
                     {header}
                 </Text>

@@ -77,8 +77,22 @@ export const fetchAllTasks = async (table_name = 'next_tasks') => {
         );
 
         console.log('data fetched: \n',JSON.stringify(result))
-        return result;
+        return result || [];
     } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteTask = async(taskId, table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const deleteQuery = `DELETE FROM ${table_name} WHERE task_id = ?`;
+        const res = await database.runAsync(deleteQuery,[taskId]);
+        if(res.changes === 1){
+            return true;
+        }
+        return false;
+    }catch(error){
         throw error;
     }
 };

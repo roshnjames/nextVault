@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import PopupComponent from "../../components/PopupComponent";
 import useHomeScreenViewModel from "../../viewmodels/homeScreen/useHomeScreenViewModel";
 
 const HomeScreen = () => {
@@ -15,6 +16,23 @@ const HomeScreen = () => {
     return (
         <View style={homeScreenModel.styles.majorContainer}>
             <View style={homeScreenModel.styles.mainContainer}>
+                {homeScreenModel.tasks?.length === 0 && 
+                <View style={homeScreenModel.styles.noTaskContainer}>
+                    <TouchableOpacity 
+                        style={homeScreenModel.styles.taskAddButton}
+                        onPress={homeScreenModel.handleAddTask}
+                    >
+                        <Image
+                            source={homeScreenModel.scheduleScreenButtons.ADD_TASK}
+                            style={homeScreenModel.styles.addtaskItemImage}
+                        />
+                        <Text style={homeScreenModel.styles.addTaskText}>
+                            {homeScreenModel.scheduleScreenTexts.ADD_TASK}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                }
+                {homeScreenModel.tasks?.length > 0 && <>
                 <View style={homeScreenModel.styles.filterContainer}>
                     <Text style={homeScreenModel.styles.filterText}>
                         Filter Tasks
@@ -72,6 +90,7 @@ const HomeScreen = () => {
 
                                         <TouchableOpacity 
                                         style={homeScreenModel.styles.taskItemButton}
+                                        onPress={()=>homeScreenModel.handleDeleteTask(task?.task_id)}
                                         >
                                             <Image
                                                 source={homeScreenModel?.scheduleScreenButtons?.DELETE_TASK}
@@ -102,7 +121,16 @@ const HomeScreen = () => {
                         })}
                     </ScrollView>
                 </View>
+                </>
+                }
             </View>
+            {homeScreenModel.popupVisible && (
+                <PopupComponent 
+                    visible={homeScreenModel.popupVisible}
+                    popupText={homeScreenModel.popupText}
+                    setClosePopup={homeScreenModel.setPopupVisible}
+                />
+            )}
         </View>
     );
 };
