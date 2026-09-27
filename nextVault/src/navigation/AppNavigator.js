@@ -8,10 +8,10 @@ import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 import { TaskContext } from '../context/taskDetails';
 import { initDatabase } from '../database/database';
+import AddTaskScreen from '../screens/addtask/AddTaskScreen';
 import HomeScreen from "../screens/homescreen/HomeScreen";
 import ScheduleScreen from '../screens/schedule/ScheduleScreen';
 import appHolderStyles from '../styles/navigator/appNavigator.styles';
-import AddTaskScreen from '../styles/screens/addtask/AddTaskScreen';
 
 const Stack = createNativeStackNavigator();
 const styles = appHolderStyles();

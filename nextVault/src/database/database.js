@@ -38,15 +38,7 @@ export const initDatabase = async () => {
 
 export const insertNewTask = async (taskData) => {
     try {
-        console.log(
-            'insert data received:',
-            JSON.stringify(taskData)
-        );
-
         const database = await createDatabase();
-
-        console.log('database instance:', database);
-
         const result = await database.runAsync(
             `INSERT INTO next_tasks (
                 task_name,
@@ -78,19 +70,15 @@ export const insertNewTask = async (taskData) => {
 
 export const fetchAllTasks = async (table_name = 'next_tasks') => {
     try {
-        console.log('fetching all tasks:', table_name);
-
         const database = await createDatabase();
 
         const result = await database.getAllAsync(
             `SELECT * FROM ${table_name}`
         );
 
-        console.log('result fetched:', result);
-
+        console.log('data fetched: \n',JSON.stringify(result))
         return result;
     } catch (error) {
-        console.error('Data fetching error:', error);
         throw error;
     }
 };

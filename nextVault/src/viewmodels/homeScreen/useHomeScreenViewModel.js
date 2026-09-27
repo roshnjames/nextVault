@@ -1,14 +1,16 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useContext } from 'react';
+import Toast from 'react-native-toast-message';
 import { TaskContext } from "../../context/taskDetails";
 import { fetchAllTasks } from '../../database/database';
+import { scheduleScreenButtons } from '../../images/imageLoader';
 import { homeScreenTexts } from '../../strings/textLoader';
 import HomeScreenStyles from "../../styles/screens/homescreen/homeScreen.styles";
 
 
 const useHomeScreenViewModel = () => {
     const styles = HomeScreenStyles();
-    const { loading, setLoading, setHeader, setTasks } = useContext(TaskContext);
+    const { loading, setLoading, setHeader, tasks, setTasks } = useContext(TaskContext);
 
     useFocusEffect(
         useCallback(() => {      
@@ -17,10 +19,17 @@ const useHomeScreenViewModel = () => {
                     setLoading(true);
                     const tasks = await fetchAllTasks();
                     setTasks(tasks);
-                    console.log('Fetched tasks:+++++++++++\n', tasks);
                     setLoading(false);
                 } catch (error) {
-                    console.error('Error fetching tasks:', error);
+                    Toast.show({
+                        type:'error',
+                        position:'bottom',
+                        text1:'An error occurred...',
+                        visibilityTime:1800,
+                        avoidKeyboard:true,
+                        bottomOffset:180
+                        
+                    });
                     setLoading(false);
                 }
             };
@@ -32,9 +41,10 @@ const useHomeScreenViewModel = () => {
         styles,
         loading,
         homeScreenTexts,
-        setHeader
+        setHeader,
+        tasks,
+        scheduleScreenButtons
     }
-
 };
 
 export default useHomeScreenViewModel;

@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { TaskContext } from '../../context/taskDetails';
 import { insertNewTask } from '../../database/database';
 import { addTaskScreenTexts, commonTexts, ON_OFF } from '../../strings/textLoader';
-import addTaskScreenStyles from '../../styles/addTask/addTaskScreen.styles';
+import addTaskScreenStyles from '../../styles/screens/addTask/addTaskScreen.styles';
 import { addTaskPriorityVals } from '../../utils/dropDownValues';
 
 const useAddTaskViewModel = ({ route }) => {

@@ -16,5 +16,8 @@ export const popupComponentImages = {
 export const scheduleScreenButtons = {
     ADD_TASK: require('../../assets/Schedule/plus.png'),
     DELETE_TASK: require('../../assets/Schedule/trash.png'),
-    EDIT_TASK: require('../../assets/Schedule/edit.png')
+    EDIT_TASK: require('../../assets/Schedule/edit.png'),
+    DONE_TASK: require('../../assets/Schedule/tick.png'),
+    ALARM_ON: require('../../assets/Schedule/alarm-on.png'),
+    ALARM_OFF: require('../../assets/Schedule/alarm-off.png')
 };
