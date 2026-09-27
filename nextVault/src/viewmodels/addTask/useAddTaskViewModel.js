@@ -1,13 +1,12 @@
 import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Alert } from 'react-native';
 import RNFS from 'react-native-fs';
 import { launchCamera } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import { TaskContext } from '../../context/taskDetails';
 import { insertNewTask } from '../../database/database';
 import { addTaskScreenTexts, commonTexts, ON_OFF } from '../../strings/textLoader';
-import addTaskScreenStyles from '../../styles/addTask/addTaskScreen.styles';
+import addTaskScreenStyles from '../../styles/screens/addTask/addTaskScreen.styles';
 import { addTaskPriorityVals } from '../../utils/dropDownValues';
 
 const useAddTaskViewModel = ({ route }) => {
@@ -109,7 +108,7 @@ const useAddTaskViewModel = ({ route }) => {
                 console.log('new Task :\n', JSON.stringify(newTaskCreated.current));
 
                 const res = await insertNewTask(newTaskCreated.current);
-                if (res.length > 0) {
+                if (Object.keys(res).length > 0) {
                     resetTaskData();
 
                     Toast.show({
