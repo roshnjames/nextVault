@@ -8,8 +8,10 @@ export const commonTexts = {
     CANCEL:'Cancel',
     SUBMIT:"Submit",
     CANCELLED : "Cancelled",
+    ERROR_OCCURRED:'An error occurred...',
     ERROR_SOMETHING : "Something went wrong!",
-    IMAGE_FAILED:'Failed to save image!'
+    IMAGE_FAILED:'Failed to save image!',
+    FAILED:'Failed...'
 };
 
 export const bottomMenuTexts = {
@@ -40,5 +42,7 @@ export const addTaskScreenTexts = {
 
 export const homeScreenTexts = {
     YOUR_TASKS:"Your Tasks",
-    TASKS:"Tasks"
+    TASKS:"Tasks",
+    DELETE_SUCCESS:"Task Deleted!",
+    DELETE_FAILED:"Failed to Delete..."
 };
