@@ -41,27 +41,43 @@ const homeScreenStyles = () => StyleSheet.create({
         marginTop:'2%'
     },
     filterContainer:{
-        flex:0.05,
+        flex:0.075,
         flexDirection:'row',
         width:'100%',
         backgroundColor:'rgb(4, 30, 59)',
-        justifyContent:'space-around',
+        justifyContent:'space-evenly',
         alignItems:'center'
+    },
+    filterButton:{
+        width:'70%',
+        height:'60%',
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:20
     },
     filterText:{
         fontFamily:'monospace',
-        fontSize:16,
-        color:'cyan'
+        fontSize:14,
+        color:'cyan',
+    },
+    filterDateText:{
+        fontFamily:'monospace',
+        fontSize:14,
+        color:'cyan',
+        color:'black'
     },
     filterButtonContainer:{
         flex:0.5,
-        height:'80%',
-        backgroundColor:'rgb(88, 178, 14)',
+        height:'70%',
+        backgroundColor:'rgb(14, 164, 178)',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        borderRadius:20,
+        borderWidth:2,
+        borderColor:'rgb(166, 216, 234)'
     },
     tasksContainer: {
-        flex: 0.95,
+        flex: 0.925,
         width: '100%',
         backgroundColor: '#08031bff',
         paddingTop:'2%'
@@ -76,7 +92,7 @@ const homeScreenStyles = () => StyleSheet.create({
         width: '90%',
         height: 220,
         flexDirection: 'column',
-        backgroundColor: 'rgb(32, 78, 131)',
+        backgroundColor: 'rgb(158, 205, 30)',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '2%',
@@ -103,7 +119,8 @@ const homeScreenStyles = () => StyleSheet.create({
         borderColor:'black',
         alignItems:'center',
         justifyContent:'center',
-        marginVertical:4
+        marginVertical:4,
+        backgroundColor:'white'
     },
     taskItemIndexText:{
         fontSize:16,

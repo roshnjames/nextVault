@@ -88,10 +88,18 @@ export const deleteTask = async(taskId, table_name = 'next_tasks') => {
         const database = await createDatabase();
         const deleteQuery = `DELETE FROM ${table_name} WHERE task_id = ?`;
         const res = await database.runAsync(deleteQuery,[taskId]);
-        if(res.changes === 1){
-            return true;
-        }
-        return false;
+        return res.changes === 1;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const updateTaskCompletion = async(taskId, table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const updateQuery = `UPDATE ${table_name} SET task_is_completed = ? WHERE task_id = ?`;
+        const updateRes = await database.runAsync(updateQuery,[1,taskId]);
+        return updateRes.changes === 1;
     }catch(error){
         throw error;
     }

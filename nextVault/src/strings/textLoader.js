@@ -3,6 +3,15 @@ export const ON_OFF ={
     OFF:'OFF'
 };
 
+export const colorValues = {
+    RED:'rgb(238, 12, 12)',
+    ORANGE:'rgb(213, 96, 33)',
+    PINK:'rgb(191, 40, 103)',
+    BLUE:'rgb(45, 107, 178)',
+    CYAN:'rgb(22, 168, 171)',
+    GREEN:'rgb(48, 176, 45)',
+};
+
 export const commonTexts = {
     OK:'OK',
     CANCEL:'Cancel',
@@ -43,6 +52,7 @@ export const addTaskScreenTexts = {
 export const homeScreenTexts = {
     YOUR_TASKS:"Your Tasks",
     TASKS:"Tasks",
+    SELECT_DATE:"Select Date",
     DELETE_SUCCESS:"Task Deleted!",
     DELETE_FAILED:"Failed to Delete..."
 };
