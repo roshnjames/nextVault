@@ -17,7 +17,7 @@ const useAddTaskViewModel = ({ route }) => {
 
     const [addTaskNewTask, setAddTaskNewTask] = useState('');
     const [addTaskNewTaskDetails, setAddTaskNewTaskDetails] = useState('');
-    const [addTaskPriority, setAddTaskPriority] = useState(addTaskPriorityVals[1].label);
+    const [addTaskPriority, setAddTaskPriority] = useState(addTaskPriorityVals[1].value);
     const [addTaskAlertEnabled, setAddTaskAlertEnabled] = useState(true);
     const [addTaskImageCaptured, setAddTaskImageCaptured] = useState(null);
     const folderPath = `${RNFS.DocumentDirectoryPath}/TaskImages`;
