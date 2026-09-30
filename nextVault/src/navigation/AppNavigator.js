@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import { TaskContext } from '../context/taskDetails';
 import { initDatabase } from '../database/database';
 import AddTaskScreen from '../screens/addtask/AddTaskScreen';
+import EditTaskScreen from '../screens/edittask/EditTaskScreen';
 import HomeScreen from "../screens/homescreen/HomeScreen";
 import ScheduleScreen from '../screens/schedule/ScheduleScreen';
 import appHolderStyles from '../styles/navigator/appNavigator.styles';
@@ -40,6 +41,7 @@ const AppNavigator = () => {
             <Stack.Screen name="home" component={HomeScreen} />
             <Stack.Screen name="schedule" component={ScheduleScreen} />
             <Stack.Screen name="addTask" component={AddTaskScreen} />
+            <Stack.Screen name="editTask" component={EditTaskScreen} />
           </Stack.Navigator>
 
           <BottomMenu />

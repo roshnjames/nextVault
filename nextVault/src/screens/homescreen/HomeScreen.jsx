@@ -119,6 +119,7 @@ const HomeScreen = () => {
 
                                             <TouchableOpacity 
                                             style={homeScreenModel.styles.taskItemButton}
+                                            onPress={()=>homeScreenModel.handleEditTask(task?.task_id)}
                                             >
                                                 <Image
                                                     source={homeScreenModel?.scheduleScreenButtons?.EDIT_TASK}
