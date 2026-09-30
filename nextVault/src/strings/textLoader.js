@@ -56,3 +56,7 @@ export const homeScreenTexts = {
     DELETE_SUCCESS:"Task Deleted!",
     DELETE_FAILED:"Failed to Delete..."
 };
+
+export const editTaskScreenTexts = {
+    EDIT_TASK:" Edit Task",
+};

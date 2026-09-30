@@ -120,6 +120,10 @@ const useHomeScreenViewModel = () => {
         }
     };
 
+    const handleEditTask = (taskId) => {
+        navigation.navigate('editTask',{taskId});
+    };
+
     const handleTaskCompletion = async(taskId) => {
         try{
             const res = await updateTaskCompletion(taskId);
@@ -151,7 +155,8 @@ const useHomeScreenViewModel = () => {
         setShowDatePicker,
         handleDateSelection,
         handleTaskColor,
-        handleTaskCompletion
+        handleTaskCompletion,
+        handleEditTask
     }
 };
 
