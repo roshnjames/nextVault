@@ -36,7 +36,7 @@ const AddTaskScreen = ({ route }) => {
                             >
                                 {addTaskModel.addTaskPriorityVals.map((item, index) => (
                                     <Picker.Item
-                                        key={index} addTask
+                                        key={index}
                                         label={item.label}
                                         value={item.value}
                                     />

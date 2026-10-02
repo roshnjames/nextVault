@@ -16,6 +16,7 @@ export const commonTexts = {
     OK:'OK',
     CANCEL:'Cancel',
     SUBMIT:"Submit",
+    UPDATE:"Update",
     CANCELLED : "Cancelled",
     ERROR_OCCURRED:'An error occurred...',
     ERROR_SOMETHING : "Something went wrong!",
@@ -59,4 +60,15 @@ export const homeScreenTexts = {
 
 export const editTaskScreenTexts = {
     EDIT_TASK:" Edit Task",
+    COMPLETED_TASK_NO_EDIT:"Unable to update...\nAlready completed task!",
+    HEADING:"Add new Task",
+    TASK_NAME:"Task Name",
+    TASK_DATE:"Change Date",
+    TASK_DESC:"Update Details",
+    TASK_PRIORITY:"Change Priority",
+    TASK_ALERT:"Alert Me",
+    TASK_IMAGE:"Update picture",
+    TASK_IMAGE_CAPTURE:'Open Camera',
+    TASK_RECAPTURE:'Recapture',
+    TASK_TAG:'Tag'
 };
