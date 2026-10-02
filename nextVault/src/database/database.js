@@ -104,3 +104,17 @@ export const updateTaskCompletion = async(taskId, table_name = 'next_tasks') => 
         throw error;
     }
 };
+
+export const fetchTaskById = async(taskId, table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const fetchQuery = `SELECT * FROM ${table_name} WHERE task_id = ?`;
+        const fetchRes = await database.getFirstAsync(fetchQuery,[taskId]);
+        if(!fetchRes){
+            return false;
+        }
+        return fetchRes;
+    }catch(error){
+        throw error;
+    }
+};
