@@ -1,1 +1,1 @@
-a simple activity tracking offline mobile app
+an activity tracking offline mobile app
