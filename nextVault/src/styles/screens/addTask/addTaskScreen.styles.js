@@ -59,6 +59,19 @@ const addTaskScreenStyles = () => StyleSheet.create({
         borderRadius:10,
         color:'rgb(27, 150, 159)'
     },
+     filterDateText:{
+        height:'80%',
+        width:'60%',
+        textAlign:'center',
+        textAlignVertical:'center',
+        fontFamily:'monospace',
+        fontSize:14,
+        color:'cyan',
+        backgroundColor:'rgb(44, 55, 108)',
+        borderRadius:15,
+        borderColor:'cyan',
+        borderWidth:1,
+    },
     addTaskScreenTextStyle:{
         fontSize:18,
         fontWeight:'bold',

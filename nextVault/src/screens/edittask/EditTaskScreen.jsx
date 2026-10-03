@@ -1,3 +1,4 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
@@ -37,20 +38,27 @@ const EditTaskScreen = ({route}) => {
                         <Text style={editTaskModel.styles.addTaskLabelText}>
                             {editTaskModel.editTaskScreenTexts.TASK_DATE}*
                         </Text>
-                        <TextInput
-                            style={editTaskModel.styles.textInputBox}
-                            // placeholder='Enter task'
-                            value={editTaskModel.t_name}
-                            onChangeText={editTaskModel.setT_name}
-                            maxLength={50}
-                            multiline
-                        />
+                        <TouchableOpacity
+                            style={[editTaskModel.styles.textInputBox,
+                                {
+                                    height:'70%',
+                                    borderWidth:0,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }
+                            ]}
+                            onPress={()=>editTaskModel.setIsDatePickerVisible(true)}
+                        >
+                            <Text style={editTaskModel.styles.filterDateText}>
+                                {editTaskModel.t_date}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={[editTaskModel.styles.taskNameHolder,{flex:0.1}]}>
-                        <Text style={editTaskModel.styles.addTaskLabelText}>
+                         <Text style={[editTaskModel.styles.addTaskLabelText,{flex:0.4}]}>
                             {editTaskModel.editTaskScreenTexts.TASK_PRIORITY}*
                         </Text>
-                        <View style={editTaskModel.styles.dropDownPicker}>
+                        <View style={[editTaskModel.styles.dropDownPicker,{flex:0.55}]}>
                             <Picker
                                 style={editTaskModel.styles.addTaskPicker}
                                 selectedValue={editTaskModel.t_priority}
@@ -88,7 +96,7 @@ const EditTaskScreen = ({route}) => {
                                 {`Alarm  ${editTaskModel.t_alarm ? editTaskModel.ON_OFF.ONN : editTaskModel.ON_OFF.OFF}`}
                             </Text>
                             <Switch
-                                value={editTaskModel.t_alarm === 1}
+                                value={editTaskModel.t_alarm}
                                 onValueChange={val => editTaskModel.setT_alarm(val)}
                                 style={[editTaskModel.styles.addTaskPicker, { width: '30%' }]}
                             />
@@ -148,14 +156,24 @@ const EditTaskScreen = ({route}) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                 {editTaskModel.popupVisible && (
-                <PopupComponent
-                    visible={editTaskModel.popupVisible}
-                    // buttonCount={2}
-                    popupText={editTaskModel.popupText}
-                    setClosePopup={editTaskModel.setPopupVisible}
-                />
-            )} 
+                {editTaskModel.isDatePickerVisible && (
+                    <DateTimePicker
+                        value={new Date(editTaskModel.t_date)}
+                        mode="date"
+                        display="spinner"
+                        onValueChange={editTaskModel.handleDateUpdation}
+                        onDismiss={() => editTaskModel.setIsDatePickerVisible(false)}
+                    />
+                )
+                }
+                {editTaskModel.popupVisible && (
+                    <PopupComponent
+                        visible={editTaskModel.popupVisible}
+                        // buttonCount={2}
+                        popupText={editTaskModel.popupText}
+                        setClosePopup={editTaskModel.setPopupVisible}
+                    />
+                )} 
             </View> 
         </View>
     );
