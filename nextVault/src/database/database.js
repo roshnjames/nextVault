@@ -140,3 +140,15 @@ export const updateTaskById = async(t_id,t_name,t_priority,t_details,t_alarm,t_p
         throw error;
     }
 };
+
+export const fetchTaskByDate = async(date, table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const fetchQuery = `SELECT * FROM ${table_name} WHERE task_date = ?`;
+        const fetchRes = await database.getAllAsync(fetchQuery,[date]);
+        if(!fetchRes) return false;
+        return fetchRes;
+    }catch(error){
+        throw error;
+    }
+};

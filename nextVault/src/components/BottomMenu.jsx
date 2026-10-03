@@ -22,17 +22,7 @@ const BottomMenu = () => {
                         {bottomMenuTexts.CURRENT_TASK}
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
-                style={styles.menuItem}
-                >
-                    <Image
-                        source = {bottomMenuImages.EDIT_TASKS}  
-                        style={styles.bottomMenuImageStyle} 
-                    />
-                    <Text style={styles.bottomMenuTextStyle}>
-                        {bottomMenuTexts.EDIT_TASKS}
-                    </Text>
-                </TouchableOpacity>
+                
                 <TouchableOpacity 
                     style={styles.menuItem}
                     onPress={() => navigation.navigate('schedule')}
@@ -43,6 +33,18 @@ const BottomMenu = () => {
                     />
                     <Text style={styles.bottomMenuTextStyle}>
                         {bottomMenuTexts.CALENDAR}
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={styles.menuItem}
+                >
+                    <Image
+                        source = {bottomMenuImages.EDIT_TASKS}  
+                        style={styles.bottomMenuImageStyle} 
+                    />
+                    <Text style={styles.bottomMenuTextStyle}>
+                        {bottomMenuTexts.EDIT_TASKS}
                     </Text>
                 </TouchableOpacity>
             </View>

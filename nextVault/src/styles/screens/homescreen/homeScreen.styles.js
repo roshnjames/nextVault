@@ -90,7 +90,7 @@ const homeScreenStyles = () => StyleSheet.create({
     },
     taskItemContainer: {
         width: '90%',
-        height: 220,
+        height: 270,
         flexDirection: 'column',
         backgroundColor: 'rgb(158, 205, 30)',
         justifyContent: 'space-between',
@@ -120,7 +120,7 @@ const homeScreenStyles = () => StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginVertical:4,
-        backgroundColor:'white'
+        backgroundColor:'rgba(176, 176, 176, 0.53)'
     },
     taskItemIndexText:{
         fontSize:16,
@@ -129,16 +129,17 @@ const homeScreenStyles = () => StyleSheet.create({
         fontStyle:'normal'
     },
     taskItemNameMainContainer:{
-        maxWidth:'80%',
+        width:'80%',
         overflow:'hidden',
-        alignItem:'center',
+        alignItems:'flex-start',
         justifyContent:'center'
     },
     taskItemNameText:{
         fontSize:15,
-        fontWeight:'400',
+        fontWeight:'bold',
         fontFamily:'monospace',
-        fontStyle:'normal'
+        fontStyle:'normal',
+        color:'rgb(241, 234, 238)'
     },
     taskItemAlarmContainer:{
         width:'3%',

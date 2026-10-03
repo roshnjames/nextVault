@@ -20,7 +20,7 @@ const EditTaskScreen = ({route}) => {
     return(
          <View style={editTaskModel.styles.majorContainer}>
              <View style={editTaskModel.styles.innerContainer}>
-                <View style={editTaskModel.styles.contentHolder}>
+                <View style={[editTaskModel.styles.contentHolder,{borderColor:'green',borderWidth:1}]}>
                     <View style={[editTaskModel.styles.taskNameHolder,{flex:0.1}]}>
                         <Text style={editTaskModel.styles.addTaskLabelText}>
                             {editTaskModel.editTaskScreenTexts.TASK_NAME}*
@@ -171,7 +171,13 @@ const EditTaskScreen = ({route}) => {
                         visible={editTaskModel.popupVisible}
                         // buttonCount={2}
                         popupText={editTaskModel.popupText}
-                        setClosePopup={editTaskModel.setPopupVisible}
+                        {...(editTaskModel.nav && {
+                            handleLeftButtonClick : editTaskModel.handleNavigation,
+                        })}
+                        setClosePopup={()=>{
+                            editTaskModel.setPopupVisible(false),
+                            editTaskModel.setNav(false)
+                        }}
                     />
                 )} 
             </View> 

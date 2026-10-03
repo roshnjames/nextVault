@@ -42,8 +42,36 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginTop: 'auto',
-        height: '35%',
-        gap: height * 0.05
+        height: '47%',
+        gap: height * 0.05,
+    },
+    displayDayDetailsContainer: {
+        alignItems:'center',
+        justifyContent:'space-between',
+        height : height * 0.06,
+        width : '100%',
+    },
+    displayDayDetailDateContainer: {
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    displayDayDetailTasksContainer:{
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    dayDetailsDateText:{
+        fontStyle:'normal',
+        fontWeight:'bold',
+        fontSize:18,
+        color:'rgb(18, 185, 185)',
+        textAlign:'center'
+    },
+    dayDetailsTasksText:{
+        fontStyle:'normal',
+        fontWeight:'bold',
+        fontSize:16,
+        color:'rgb(18, 124, 185)',
+        textAlign:'center'
     },
     addTaskContainer: {
         width: "75%",

@@ -1,9 +1,11 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useWindowDimensions } from "react-native";
+import Toast from "react-native-toast-message";
 import { TaskContext } from "../../context/taskDetails";
+import { fetchTaskByDate } from "../../database/database";
 import { scheduleScreenButtons } from "../../images/imageLoader";
-import { scheduleScreenTexts } from "../../strings/textLoader";
+import { commonTexts, scheduleScreenTexts } from "../../strings/textLoader";
 import scheduleScreenStyles from "../../styles/screens/schedule/scheduleScreen.styles";
 
 const useScheduleViewModel = () => {
@@ -11,7 +13,8 @@ const useScheduleViewModel = () => {
     const styles = scheduleScreenStyles(height, width);
     const navigation = useNavigation();
     const { setHeader } = useContext(TaskContext);
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [totalTasks, setTotalTasks] = useState(0);
 
 
     useFocusEffect(
@@ -19,6 +22,26 @@ const useScheduleViewModel = () => {
             setHeader(scheduleScreenTexts.HEADING);
         },[])
     );
+
+    useEffect(()=>{
+        const fetchTasks = async () => {
+            if(!selectedDate) return;
+            try {
+                const tasks = await fetchTaskByDate(selectedDate);
+                setTotalTasks(tasks?.length);
+            } catch (error) {
+                Toast.show({
+                    type: 'error',
+                    position: 'bottom',
+                    text1: commonTexts.DATA_FETCH_FAILED,
+                    visibilityTime: 1800,
+                    avoidKeyboard: true,
+                    bottomOffset: 180
+                });
+            }
+        };
+        fetchTasks();
+    },[selectedDate])
 
     const checkSelectedDate = (dt) => {
         if (selectedDate === dt.dateString) {
@@ -41,7 +64,8 @@ const useScheduleViewModel = () => {
         checkSelectedDate,
         scheduleScreenTexts,
         scheduleScreenButtons,
-        handleAddTaskPress
+        handleAddTaskPress,
+        totalTasks
     };
 
 };
