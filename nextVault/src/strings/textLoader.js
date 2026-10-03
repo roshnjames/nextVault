@@ -27,7 +27,7 @@ export const commonTexts = {
 
 export const bottomMenuTexts = {
     CURRENT_TASK: "Tasks",
-    EDIT_TASKS: "Modify",
+    EDIT_TASKS: "Notes",
     CALENDAR: "Schedule",
 };
 
@@ -75,4 +75,8 @@ export const editTaskScreenTexts = {
     TASK_TAG:'Modify Tag',
     UPDATE_FAILED:"Failed to update...",
     UPDATE_SUCCESS:"Task updated!"
+};
+
+export const noteScreenTexts ={
+    HEADER:"Notes",
 };

@@ -4,14 +4,14 @@ import { bottomMenuImages } from "../images/imageLoader";
 import { bottomMenuTexts } from "../strings/textLoader";
 import bottomMenuStyles from "../styles/screens/bottomMenu/bottomMenu.styles";
 
-const BottomMenu = () => {
+const BottomMenu = ({selectedTab}) => {
     const styles = bottomMenuStyles();
     const navigation = useNavigation();
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 <TouchableOpacity 
-                    style={styles.menuItem}
+                    style={[styles.menuItem,selectedTab === 'home' && {backgroundColor:'rgb(151, 151, 156)'}]}
                     onPress={() => navigation.navigate('home')}
                 >
                     <Image
@@ -24,7 +24,7 @@ const BottomMenu = () => {
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
-                    style={styles.menuItem}
+                    style={[styles.menuItem,selectedTab === 'schedule' && {backgroundColor:'rgb(151, 151, 156)'}]}
                     onPress={() => navigation.navigate('schedule')}
                 >
                     <Image
@@ -37,7 +37,8 @@ const BottomMenu = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                style={styles.menuItem}
+                style={[styles.menuItem,selectedTab === 'notes' && {backgroundColor:'rgb(151, 151, 156)'}]}
+                onPress={() => navigation.navigate('notes')}
                 >
                     <Image
                         source = {bottomMenuImages.EDIT_TASKS}  
