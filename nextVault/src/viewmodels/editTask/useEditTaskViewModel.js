@@ -24,6 +24,7 @@ const useEditTaskViewModel = (params) => {
     const [t_alarm, setT_alarm] = useState(false);
     const [t_picture, setT_picture] = useState('');
     const [t_tag, setT_tag] = useState('');
+    const [nav,setNav] = useState(false);
     
 
     const updateTaskData = (taskData) => {
@@ -137,11 +138,16 @@ const useEditTaskViewModel = (params) => {
                                 );
             if(!updateRes) throw new Error(editTaskScreenTexts.UPDATE_FAILED);
             setPopupText(editTaskScreenTexts.UPDATE_SUCCESS);
+            setNav(true);
         }catch(error){
             setPopupText(editTaskScreenTexts.UPDATE_FAILED);
         }finally{
             setPopupVisible(true);
         }
+    };
+
+    const handleNavigation = () => {
+        navigation.navigate('home');
     };
 
     return{
@@ -172,7 +178,10 @@ const useEditTaskViewModel = (params) => {
         handleTaskUpdate,
         isDatePickerVisible,
         setIsDatePickerVisible,
-        handleDateUpdation
+        handleDateUpdation,
+        handleNavigation,
+        nav,
+        setNav
     };
 };
 

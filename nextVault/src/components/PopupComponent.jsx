@@ -8,7 +8,9 @@ const PopupComponent = ({
     visible = false,
     buttonCount = 1,
     popupText = '',
-    setClosePopup
+    handleLeftButtonClick = null,
+    handleRightButtonClick = null,
+    setClosePopup,
 }) => {
 
     const styles = popupComponentStyles();
@@ -34,14 +36,20 @@ const PopupComponent = ({
                         <View style={styles.buttonHolder}>
                             <TouchableOpacity 
                             style={styles.buttonStyle}
-                            onPress={()=>setClosePopup(false)}
+                            onPress={()=>{
+                                setClosePopup(false);
+                                handleLeftButtonClick !== null && handleLeftButtonClick();
+                            }}
                             >
                             <Text style={styles.buttonText}>{commonTexts.OK}</Text>
                             </TouchableOpacity>
                             {buttonCount === 2 && (
                                 <TouchableOpacity 
                                 style={styles.buttonStyle}
-                                onPress={()=>setClosePopup(false)}
+                                onPress={()=>{
+                                    setClosePopup(false);
+                                    handleRightButtonClick !== null && handleRightButtonClick();
+                                }}
                                 >
                                 <Text style={styles.buttonText}>{commonTexts.CANCEL}</Text>
                                 </TouchableOpacity>

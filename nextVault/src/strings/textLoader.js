@@ -4,12 +4,12 @@ export const ON_OFF ={
 };
 
 export const colorValues = {
-    RED:'rgb(238, 12, 12)',
+    RED:'rgb(199, 47, 47)',
     ORANGE:'rgb(213, 96, 33)',
-    PINK:'rgb(191, 40, 103)',
-    BLUE:'rgb(45, 107, 178)',
-    CYAN:'rgb(22, 168, 171)',
-    GREEN:'rgb(48, 176, 45)',
+    PINK:'rgb(204, 178, 11)',
+    BLUE:'rgb(37, 77, 137)',
+    CYAN:'rgb(40, 164, 167)',
+    GREEN:'rgb(64, 177, 62)',
 };
 
 export const commonTexts = {
@@ -21,7 +21,8 @@ export const commonTexts = {
     ERROR_OCCURRED:'An error occurred...',
     ERROR_SOMETHING : "Something went wrong!",
     IMAGE_FAILED:'Failed to save image!',
-    FAILED:'Failed...'
+    FAILED:'Failed...',
+    DATA_FETCH_FAILED:"Failed to fetch data..."
 };
 
 export const bottomMenuTexts = {
@@ -34,8 +35,9 @@ export const scheduleScreenTexts ={
     HEADING:"Schedule task here!",
     ADD_TASK:"Add new task...",
     SELECT_DATE:"Select a day!",
-    DELETE_TASK:"Delete all tasks",
-    EDIT_TASK:"Edit task"
+    DELETE_TASK:(totalTasks) => `Delete all ${totalTasks} tasks of the day`,
+    EDIT_TASK:"Edit task",
+    DAY_TASKS:(totalTasks) => `${totalTasks} tasks set for the day.`,
 };
 
 export const addTaskScreenTexts = {
