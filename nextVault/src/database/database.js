@@ -118,3 +118,25 @@ export const fetchTaskById = async(taskId, table_name = 'next_tasks') => {
         throw error;
     }
 };
+
+export const updateTaskById = async(t_id,t_name,t_priority,t_details,t_alarm,t_picture,t_date,t_tag,table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const updateQuery = `UPDATE ${table_name} SET
+                             task_name = ?,
+                             task_priority = ?,
+                             task_details = ?,
+                             task_alert = ?,
+                             task_image = ?,
+                             task_date = ?,
+                             task_tag = ?
+                            WHERE task_id = ?`;
+        const updateRes = await database.runAsync(
+                                updateQuery,
+                                [t_name,t_priority,t_details,t_alarm,t_picture,t_date,t_tag,t_id]
+                            );
+        return updateRes.changes === 1;
+    }catch(error){
+        throw error;
+    }
+};

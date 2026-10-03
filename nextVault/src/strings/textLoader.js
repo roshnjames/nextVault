@@ -62,7 +62,7 @@ export const editTaskScreenTexts = {
     EDIT_TASK:" Edit Task",
     COMPLETED_TASK_NO_EDIT:"Unable to update...\nAlready completed task!",
     HEADING:"Add new Task",
-    TASK_NAME:"Task Name",
+    TASK_NAME:"Modify Name",
     TASK_DATE:"Change Date",
     TASK_DESC:"Update Details",
     TASK_PRIORITY:"Change Priority",
@@ -70,5 +70,7 @@ export const editTaskScreenTexts = {
     TASK_IMAGE:"Update picture",
     TASK_IMAGE_CAPTURE:'Open Camera',
     TASK_RECAPTURE:'Recapture',
-    TASK_TAG:'Tag'
+    TASK_TAG:'Modify Tag',
+    UPDATE_FAILED:"Failed to update...",
+    UPDATE_SUCCESS:"Task updated!"
 };
