@@ -1,4 +1,4 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { TaskContext } from "../../context/taskDetails";
@@ -13,7 +13,7 @@ const useHomeScreenViewModel = () => {
     const styles = HomeScreenStyles();
     const { 
         loading, 
-        setLoading, 
+        setLoading,
         setHeader, 
         tasks, 
         setTasks,
@@ -49,7 +49,17 @@ const useHomeScreenViewModel = () => {
                     setLoading(false);
                 }
             };
-            setDisableBackButton(true)
+            setDisableBackButton(true);
+            if(navigation.getState().routes.length > 1){
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index:0,
+                        routes:[{
+                            name:'home'
+                        }]
+                    })
+                );
+            };
             fetchTasks();
 
         return() =>{

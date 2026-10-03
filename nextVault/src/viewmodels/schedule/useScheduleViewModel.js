@@ -12,7 +12,7 @@ const useScheduleViewModel = () => {
     const { height, width } = useWindowDimensions();
     const styles = scheduleScreenStyles(height, width);
     const navigation = useNavigation();
-    const { setHeader } = useContext(TaskContext);
+    const { setHeader, setLoading } = useContext(TaskContext);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [totalTasks, setTotalTasks] = useState(0);
 
@@ -27,9 +27,12 @@ const useScheduleViewModel = () => {
         const fetchTasks = async () => {
             if(!selectedDate) return;
             try {
+                setLoading(true);
                 const tasks = await fetchTaskByDate(selectedDate);
                 setTotalTasks(tasks?.length);
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 Toast.show({
                     type: 'error',
                     position: 'bottom',

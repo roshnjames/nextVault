@@ -10,7 +10,7 @@ import addTaskScreenStyles from "../../styles/screens/addTask/addTaskScreen.styl
 import { addTaskPriorityVals } from "../../utils/dropDownValues";
 
 const useEditTaskViewModel = (params) => {
-    const {setHeader, popupText, popupVisible, setPopupText, setPopupVisible } = useContext(TaskContext);
+    const {setHeader, popupText, popupVisible, setPopupText, setPopupVisible, setLoading } = useContext(TaskContext);
     const styles = addTaskScreenStyles();
     const taskId = params.taskId;
     const navigation = useNavigation();
@@ -46,20 +46,24 @@ const useEditTaskViewModel = (params) => {
         useCallback(()=>{
             const fetchTaskData = async() => {
                 try{
+                    setLoading(true);
                     const taskData = await fetchTaskById(taskId);
                     if(!taskData){
                         throw new Error(commonTexts.ERROR_OCCURRED);
                     }
 
                     if(taskData?.task_is_completed === 1){
+                        setLoading(false);
                         setPopupText(editTaskScreenTexts.COMPLETED_TASK_NO_EDIT);
                         setPopupVisible(true);
                         navigation.navigate('home');
                     }else{
                         updateTaskData(taskData);
+                        setLoading(false);
                     }
 
                 }catch(error){
+                    setLoading(false);
                     setPopupText(commonTexts.ERROR_SOMETHING);
                     setPopupVisible(true);
                     navigation.navigate('home');
@@ -133,6 +137,7 @@ const useEditTaskViewModel = (params) => {
 
     const handleTaskUpdate = async() => {
         try{
+            setLoading(true);
             const updateRes = await updateTaskById(
                                     taskId,t_name,t_priority,t_details,t_alarm ? 1 : 0,t_picture,t_date,t_tag
                                 );
@@ -142,6 +147,7 @@ const useEditTaskViewModel = (params) => {
         }catch(error){
             setPopupText(editTaskScreenTexts.UPDATE_FAILED);
         }finally{
+            setLoading(false);
             setPopupVisible(true);
         }
     };
