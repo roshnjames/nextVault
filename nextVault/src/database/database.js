@@ -30,6 +30,14 @@ export const initDatabase = async () => {
             );
         `);
 
+        await database.execAsync(`
+            CREATE TABLE IF NOT EXISTS next_notes (
+                note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                note_title TEXT NOT NULL,
+                note_detail TEXT 
+            );
+        `);
+
         console.log('db and table created');
     } catch (error) {
         throw error;
@@ -148,6 +156,42 @@ export const fetchTaskByDate = async(date, table_name = 'next_tasks') => {
         const fetchRes = await database.getAllAsync(fetchQuery,[date]);
         if(!fetchRes) return false;
         return fetchRes;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const deleteTaskByDate = async(date, table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const deleteQuery = `DELETE FROM ${table_name} WHERE task_date = ?`;
+        const res = await database.runAsync(deleteQuery,[date]);
+        return res.changes;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const insertNewNote = async(noteTitle, noteDetail, table_name = 'next_notes') => {
+    try{
+        const database = await createDatabase();
+        const insertQuery = `INSERT INTO ${table_name} (
+                                    note_title,
+                                    note_detail
+                                ) VALUES (?, ?)`;
+        const insertRes = await database.runAsync(insertQuery,[noteTitle,noteDetail]);
+        return insertRes.changes === 1;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const fetchAllNotes = async(table_name = 'next_notes') => {
+    try{
+        const database = await createDatabase();
+        const fetchQuery = `SELECT * FROM ${table_name}`;
+        const fetchRes = await database.getAllAsync(fetchQuery);
+        return fetchRes || [];
     }catch(error){
         throw error;
     }

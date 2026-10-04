@@ -2,6 +2,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { scheduleScreenTexts } from "../../strings/textLoader";
 import useScheduleViewModel from "../../viewmodels/schedule/useScheduleViewModel";
+import PopupComponent from "../../components/PopupComponent";
 
 const ScheduleScreen = () => {
 
@@ -54,15 +55,19 @@ const ScheduleScreen = () => {
                         </TouchableOpacity>
                     </View>
                     {scheduleModel.selectedDate && <View style={scheduleModel.styles.bottomSectionLowerContainer}>
-                        {scheduleModel.totalTasks > 0 && (<TouchableOpacity style={scheduleModel.styles.lowerButtonsStyle}>
-                            <Image
-                                source={scheduleModel.scheduleScreenButtons.DELETE_TASK}
-                                style={scheduleModel.styles.bottomSectionLowerIconStyles}
-                            />
-                            <Text style={scheduleModel.styles.lowerButtonTextStyle}>
-                                {scheduleModel.scheduleScreenTexts.DELETE_TASK(scheduleModel.totalTasks)}
-                            </Text>
-                        </TouchableOpacity>
+                        {scheduleModel.totalTasks > 0 && (
+                            <TouchableOpacity 
+                                style={scheduleModel.styles.lowerButtonsStyle}
+                                onPress={scheduleModel.handleTaskDeleteByDate}
+                            >
+                                <Image
+                                    source={scheduleModel.scheduleScreenButtons.DELETE_TASK}
+                                    style={scheduleModel.styles.bottomSectionLowerIconStyles}
+                                />
+                                <Text style={scheduleModel.styles.lowerButtonTextStyle}>
+                                    {scheduleModel.scheduleScreenTexts.DELETE_TASK(scheduleModel.totalTasks)}
+                                </Text>
+                            </TouchableOpacity>
                         )}
                         <TouchableOpacity style={scheduleModel.styles.lowerButtonsStyle}>
                             <Image
@@ -75,6 +80,13 @@ const ScheduleScreen = () => {
                         </TouchableOpacity>
                     </View>}
                 </View>
+                {scheduleModel.popupVisible && (
+                    <PopupComponent 
+                        visible={scheduleModel.popupVisible}
+                        popupText={scheduleModel.popupText}
+                        setClosePopup={scheduleModel.setPopupVisible}
+                    />
+                )}
             </View>
         </View>
     );

@@ -35,9 +35,9 @@ export const scheduleScreenTexts ={
     HEADING:"Schedule task here!",
     ADD_TASK:"Add new task...",
     SELECT_DATE:"Select a day!",
-    DELETE_TASK:(totalTasks) => `Delete all ${totalTasks} tasks of the day`,
+    DELETE_TASK:(totalTasks) => `Delete ${totalTasks} task of the day`,
     EDIT_TASK:"Edit task",
-    DAY_TASKS:(totalTasks) => `${totalTasks} tasks set for the day.`,
+    DAY_TASKS:(totalTasks) => `${totalTasks} task set for the day.`,
 };
 
 export const addTaskScreenTexts = {
@@ -79,4 +79,10 @@ export const editTaskScreenTexts = {
 
 export const noteScreenTexts ={
     HEADER:"Notes",
+    NOTE_OPEN_FAILED:"Failed to open...",
+    NEW_NOTE:"Create new note",
+    NOTE_TITLE:"Note Title",
+    NOTE_DESC:"Add note here",
+    NOTE_SAVE:"Save note",
+    NOTE_SAVE_SUCCESS:"Note saved!"
 };

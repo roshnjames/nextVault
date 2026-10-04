@@ -10,18 +10,6 @@ const BottomMenu = ({selectedTab}) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
-                <TouchableOpacity 
-                    style={[styles.menuItem,selectedTab === 'home' && {backgroundColor:'rgb(151, 151, 156)'}]}
-                    onPress={() => navigation.navigate('home')}
-                >
-                    <Image
-                        source = {bottomMenuImages.CURRENT_TASK}  
-                        style={styles.bottomMenuImageStyle} 
-                    />
-                    <Text style={styles.bottomMenuTextStyle}>
-                        {bottomMenuTexts.CURRENT_TASK}
-                    </Text>
-                </TouchableOpacity>
                 
                 <TouchableOpacity 
                     style={[styles.menuItem,selectedTab === 'schedule' && {backgroundColor:'rgb(151, 151, 156)'}]}
@@ -33,6 +21,19 @@ const BottomMenu = ({selectedTab}) => {
                     />
                     <Text style={styles.bottomMenuTextStyle}>
                         {bottomMenuTexts.CALENDAR}
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={[styles.menuItem,selectedTab === 'home' && {backgroundColor:'rgb(151, 151, 156)'}]}
+                    onPress={() => navigation.navigate('home')}
+                >
+                    <Image
+                        source = {bottomMenuImages.CURRENT_TASK}  
+                        style={styles.bottomMenuImageStyle} 
+                    />
+                    <Text style={styles.bottomMenuTextStyle}>
+                        {bottomMenuTexts.CURRENT_TASK}
                     </Text>
                 </TouchableOpacity>
 

@@ -8,6 +8,7 @@ import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 import { TaskContext } from '../context/taskDetails';
 import { initDatabase } from '../database/database';
+import AddNoteScreen from '../screens/addnote/AddNoteScreen';
 import AddTaskScreen from '../screens/addtask/AddTaskScreen';
 import EditTaskScreen from '../screens/edittask/EditTaskScreen';
 import HomeScreen from '../screens/homescreen/HomeScreen';
@@ -72,6 +73,11 @@ const AppNavigator = () => {
                         <Stack.Screen
                             name="notes"
                             component={NoteScreen}
+                        />
+
+                         <Stack.Screen
+                            name="addNote"
+                            component={AddNoteScreen}
                         />
 
                     </Stack.Navigator>

@@ -1,20 +1,59 @@
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useContext } from "react";
-import { noteScreenTexts } from "../../strings/textLoader";
+import Toast from "react-native-toast-message";
 import { TaskContext } from "../../context/taskDetails";
+import { fetchAllNotes } from "../../database/database";
+import { scheduleScreenButtons } from "../../images/imageLoader";
+import { commonTexts, noteScreenTexts } from "../../strings/textLoader";
+import noteScreenStyles from "../../styles/screens/notes/noteScreen.styles";
     
 const useNoteViewModel = () => {
-    const {setHeader, setLoading} = useContext(TaskContext);
+    const {setHeader, setLoading, popupText ,setPopupText, popupVisible, setPopupVisible, notes, setNotes} = useContext(TaskContext);
+    const styles = noteScreenStyles();
+    const navigation = useNavigation();
 
     useFocusEffect(
         useCallback(()=>{
-            console.log('notes viewmodel rendered');
+            const fetchNotes = async() => {
+                try{
+                    setLoading(true);
+                    const notes = await fetchAllNotes();
+                    console.log('notes fetched : ',JSON.stringify(notes));
+                    setNotes(notes);
+                    setLoading(false);
+                }catch(error){
+                    setLoading(false);
+                    Toast.show({
+                        type:'error',
+                        position:'bottom',
+                        text1:commonTexts.ERROR_OCCURRED,
+                        visibilityTime:1800,
+                        avoidKeyboard:true,
+                        bottomOffset:180
+                        
+                    });
+                }
+            };
+
+            fetchNotes();
         },[])
     );
 
+    const handleNoteClick = (noteId = -1) => {
+        navigation.navigate('addNote',{noteId});
+    };
+
     return{
         noteScreenTexts,
-        setHeader
+        setHeader,
+        styles,
+        popupText,
+        popupVisible,
+        setPopupVisible,
+        scheduleScreenButtons,
+        handleNoteClick,
+        notes, 
+        setNotes,
     };
 };
 
