@@ -8,6 +8,7 @@ export const TaskContextProvider = ({children}) => {
     const [popupVisible,setPopupVisible] = useState(false);
     const [popupText,setPopupText] = useState('');
     const [tasks,setTasks] = useState([]);
+    const [notes, setNotes] = useState([]);
     const [disableBackButton,setDisableBackButton] = useState(false);
 
     return (
@@ -23,6 +24,8 @@ export const TaskContextProvider = ({children}) => {
                 setPopupText,
                 tasks,
                 setTasks,
+                notes, 
+                setNotes,
                 disableBackButton,
                 setDisableBackButton
             }}

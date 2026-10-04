@@ -3,16 +3,16 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useWindowDimensions } from "react-native";
 import Toast from "react-native-toast-message";
 import { TaskContext } from "../../context/taskDetails";
-import { fetchTaskByDate } from "../../database/database";
+import { deleteTaskByDate, fetchAllTasks, fetchTaskByDate } from "../../database/database";
 import { scheduleScreenButtons } from "../../images/imageLoader";
-import { commonTexts, scheduleScreenTexts } from "../../strings/textLoader";
+import { commonTexts, homeScreenTexts, scheduleScreenTexts } from "../../strings/textLoader";
 import scheduleScreenStyles from "../../styles/screens/schedule/scheduleScreen.styles";
 
 const useScheduleViewModel = () => {
     const { height, width } = useWindowDimensions();
     const styles = scheduleScreenStyles(height, width);
     const navigation = useNavigation();
-    const { setHeader, setLoading } = useContext(TaskContext);
+    const { setHeader, setLoading, popupText, setPopupText, popupVisible, setPopupVisible, setTasks } = useContext(TaskContext);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [totalTasks, setTotalTasks] = useState(0);
 
@@ -60,6 +60,22 @@ const useScheduleViewModel = () => {
         })
     };
 
+    const handleTaskDeleteByDate = async() => {
+         try{
+            setLoading(true);
+            const delRes = await deleteTaskByDate(selectedDate);
+            if(delRes !== totalTasks) throw new Error(commonTexts.FAILED);
+            const updatedTasks = await fetchAllTasks();
+            setTasks(updatedTasks);
+            setPopupText(homeScreenTexts.DELETE_SUCCESS);
+        }catch(error){
+            setPopupText(homeScreenTexts.DELETE_FAILED);
+        }finally{
+            setLoading(false);
+            setPopupVisible(true);
+        }
+    };
+
     return {
         styles,
         selectedDate,
@@ -68,7 +84,11 @@ const useScheduleViewModel = () => {
         scheduleScreenTexts,
         scheduleScreenButtons,
         handleAddTaskPress,
-        totalTasks
+        handleTaskDeleteByDate,
+        totalTasks,
+        popupText, 
+        popupVisible, 
+        setPopupVisible
     };
 
 };
