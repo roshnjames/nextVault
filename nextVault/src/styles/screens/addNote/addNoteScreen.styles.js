@@ -41,6 +41,7 @@ const addNoteScreenStyles = () => StyleSheet.create({
     addNoteLabelText:{
         flex:0.3,
         width:'100%',
+        fontSize:16,
         fontFamily:'monospace',
         color:'rgb(32, 167, 171)',
         fontWeight:'bold',
@@ -70,6 +71,22 @@ const addNoteScreenStyles = () => StyleSheet.create({
         borderRadius:10,
         color:'rgb(27, 150, 159)',
         textAlignVertical:'top'
+    },
+    deleteButtonsStyle: {
+        flex:0.14,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    deleteNoteImage: {
+        height: 50,
+        width: 50,
+        resizeMode: 'contain'
+    },
+    deleteNoteTextStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#c79a2aff'
     },
     newNoteHolder : {
         flex:0.13,

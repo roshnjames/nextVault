@@ -81,8 +81,12 @@ export const noteScreenTexts ={
     HEADER:"Notes",
     NOTE_OPEN_FAILED:"Failed to open...",
     NEW_NOTE:"Create new note",
+    EDIT_NOTE:"Edit note",
     NOTE_TITLE:"Note Title",
     NOTE_DESC:"Add note here",
     NOTE_SAVE:"Save note",
-    NOTE_SAVE_SUCCESS:"Note saved!"
+    NOTE_SAVE_SUCCESS:"Note saved!",
+    NOTE_UPDATE_SUCCESS:"Note updated!",
+    NOTE_DELETE:"Delete Note",
+    NOTE_DELETE_SUCCESS:"Deleted!"
 };

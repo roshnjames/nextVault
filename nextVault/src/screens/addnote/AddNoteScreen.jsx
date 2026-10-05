@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import PopupComponent from "../../components/PopupComponent";
 import { noteScreenTexts } from "../../strings/textLoader";
 import useAddNoteViewModel from "../../viewmodels/addNote/useAddNoteViewModel";
 
@@ -8,10 +9,13 @@ const AddNoteScreen = ({route}) => {
     const addNoteModel = useAddNoteViewModel({noteId : route?.params});
     
     useFocusEffect(
-        useCallback(()=>{
-            
-            addNoteModel.setHeader(noteScreenTexts.NEW_NOTE);
-        },[])
+        useCallback(() => {
+            addNoteModel.setHeader(
+                addNoteModel.noteEditMode.current
+                    ? noteScreenTexts.EDIT_NOTE
+                    : noteScreenTexts.NEW_NOTE
+                );
+        }, [])
     );
 
     return(
@@ -27,7 +31,7 @@ const AddNoteScreen = ({route}) => {
                             // placeholder='Enter task'
                             value={addNoteModel.noteTitle}
                             onChangeText={addNoteModel.setNoteTitle}
-                            maxLength={50}
+                            maxLength={100}
                             multiline
                         />
                     </View>
@@ -45,7 +49,18 @@ const AddNoteScreen = ({route}) => {
                             multiline
                         />
                     </View>
-
+                    <TouchableOpacity
+                        style={addNoteModel.styles.deleteButtonsStyle}
+                        onPress={addNoteModel.handleNoteDeleteById}
+                    >
+                        <Image
+                            source={addNoteModel.scheduleScreenButtons.DELETE_TASK}
+                            style={addNoteModel.styles.deleteNoteImage}
+                        />
+                        <Text style={addNoteModel.styles.deleteNoteTextStyle}>
+                            {addNoteModel.noteScreenTexts.NOTE_DELETE}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={addNoteModel.styles.newNoteHolder}>
                     <TouchableOpacity
@@ -61,8 +76,15 @@ const AddNoteScreen = ({route}) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                {addNoteModel.popupVisible && (
+                    <PopupComponent
+                        visible={addNoteModel.popupVisible}
+                        // buttonCount={2}
+                        popupText={addNoteModel.popupText}
+                        setClosePopup={addNoteModel.setPopupVisible}
+                    />
+                )}
             </View>
-            
         </View>
     )
 };
