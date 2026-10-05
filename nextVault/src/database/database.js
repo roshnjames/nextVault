@@ -196,3 +196,42 @@ export const fetchAllNotes = async(table_name = 'next_notes') => {
         throw error;
     }
 };
+
+export const fetchNoteById = async(noteId, table_name = 'next_notes') => {
+    try{
+        const database = await createDatabase();
+        const fetchQuery = `SELECT * FROM ${table_name} WHERE note_id = ?`;
+        const fetchRes = await database.getFirstAsync(fetchQuery,[noteId]);
+        return fetchRes;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const updateNoteById = async (noteId, noteTitle, noteDetails, table_name = 'next_notes') => {
+    try {
+        const database = await createDatabase();
+        const updateQuery = `UPDATE ${table_name} SET
+                             note_title = ?,
+                             note_detail = ?
+                            WHERE note_id = ?`;
+        const updateRes = await database.runAsync(
+            updateQuery,
+            [noteTitle, noteDetails, noteId]
+        );
+        return updateRes.changes === 1;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteNoteById = async(noteId, table_name = 'next_notes') => {
+    try{
+        const database = await createDatabase();
+        const deleteQuery = `DELETE FROM ${table_name} WHERE note_id = ?`;
+        const res = await database.runAsync(deleteQuery,[noteId]);
+        return res.changes;
+    }catch(error){
+        throw error;
+    }
+};

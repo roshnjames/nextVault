@@ -17,9 +17,8 @@ const useNoteViewModel = () => {
             const fetchNotes = async() => {
                 try{
                     setLoading(true);
-                    const notes = await fetchAllNotes();
-                    console.log('notes fetched : ',JSON.stringify(notes));
-                    setNotes(notes);
+                    const fetchedNotes = await fetchAllNotes();
+                    setNotes(fetchedNotes);
                     setLoading(false);
                 }catch(error){
                     setLoading(false);
