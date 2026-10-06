@@ -49,18 +49,20 @@ const AddNoteScreen = ({route}) => {
                             multiline
                         />
                     </View>
-                    <TouchableOpacity
-                        style={addNoteModel.styles.deleteButtonsStyle}
-                        onPress={addNoteModel.handleNoteDeleteById}
-                    >
-                        <Image
-                            source={addNoteModel.scheduleScreenButtons.DELETE_TASK}
-                            style={addNoteModel.styles.deleteNoteImage}
-                        />
-                        <Text style={addNoteModel.styles.deleteNoteTextStyle}>
-                            {addNoteModel.noteScreenTexts.NOTE_DELETE}
-                        </Text>
-                    </TouchableOpacity>
+                    {addNoteModel?.noteEditMode.current && (
+                        <TouchableOpacity
+                            style={addNoteModel.styles.deleteButtonsStyle}
+                            onPress={addNoteModel.handleNoteDeleteById}
+                        >
+                            <Image
+                                source={addNoteModel.scheduleScreenButtons.DELETE_TASK}
+                                style={addNoteModel.styles.deleteNoteImage}
+                            />
+                            <Text style={addNoteModel.styles.deleteNoteTextStyle}>
+                                {addNoteModel.noteScreenTexts.NOTE_DELETE}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
                 <View style={addNoteModel.styles.newNoteHolder}>
                     <TouchableOpacity
@@ -79,9 +81,11 @@ const AddNoteScreen = ({route}) => {
                 {addNoteModel.popupVisible && (
                     <PopupComponent
                         visible={addNoteModel.popupVisible}
-                        // buttonCount={2}
                         popupText={addNoteModel.popupText}
-                        setClosePopup={addNoteModel.setPopupVisible}
+                        {...(addNoteModel.navBack && {
+                            handleLeftButtonClick : ()=>addNoteModel.handleNavigation(),
+                        })}
+                        setClosePopup={()=>addNoteModel.setPopupVisible(false)}
                     />
                 )}
             </View>

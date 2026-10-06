@@ -19,5 +19,6 @@ export const scheduleScreenButtons = {
     EDIT_TASK: require('../../assets/Schedule/edit.png'),
     DONE_TASK: require('../../assets/Schedule/tick.png'),
     ALARM_ON: require('../../assets/Schedule/alarm-on.png'),
-    ALARM_OFF: require('../../assets/Schedule/alarm-off.png')
+    ALARM_OFF: require('../../assets/Schedule/alarm-off.png'),
+    SEARCH_ICON: require('../../assets/Schedule/search.png')
 };
