@@ -13,14 +13,42 @@ const noteScreenStyles = () => StyleSheet.create({
         flexDirection:'column',
         backgroundColor: '#08031bff',
         alignItems:'center',
+        justifyContent:'space-between'
     },
-    topBarContainer:{
-        flex:0.08,
-        flexDirection:'row',
-        width:'100%',
+    topBarContainer: {
+        flex: 0.08,
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+    searchTextHolder:{
+        flex:0.85,
+        height:'100%',
+        alignItems:'flex-start',
+        justifyContent:'center'
+    },
+    searchInputHolder:{
+        borderBottomWidth:1,
+        borderBottomColor:'cyan',
+        width:'95%',
+        height:'70%',
+        alignItems:'flex-start',
+    },
+    searchInputText:{
+        fontSize:15,
+        fontFamily:'monospace',
+        color:'cyan',
+    },
+    searchButtonHolder:{
         alignItems:'center',
-        justifyContent:'space-evenly',
-        backgroundColor:'cyan'
+        justifyContent:'center',
+        overflow:'hidden',
+    },
+    searchIconImage:{
+        width: 35,
+        height: 35,
+        resizeMode: 'contain',
     },
     notesListContainer: {
         flex: 0.92,
@@ -28,7 +56,9 @@ const noteScreenStyles = () => StyleSheet.create({
         backgroundColor: '#08031bff',
         justifyContent:'flex-start',
         alignItems:'center',
-        paddingTop:'2%'
+        paddingTop:'2%',
+        borderTopWidth:0.5,
+        borderTopColor:'cyan'
     },
     notesList:{
         flexDirection: 'row',

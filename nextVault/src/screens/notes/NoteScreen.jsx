@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import PopupComponent from '../../components/PopupComponent';
 import useNoteViewModel from "../../viewmodels/notes/useNoteViewModel";
 
@@ -17,20 +17,39 @@ const NoteScreen = () => {
         <View style={noteModel.styles.majorContainer}>
             <View style={noteModel.styles.mainContainer}>
                 <View style={noteModel.styles.topBarContainer}>
-                    <Text>
-                    Notescreen rendered
-                    </Text>
-                    <Text>
-                    rendered
-                    </Text>
+                    <View style={noteModel.styles.searchTextHolder}>
+                        {noteModel.searchEnable && (
+                            <View style={noteModel.styles.searchInputHolder}>
+                                <TextInput 
+                                  value={noteModel.searchText}
+                                  onChangeText={noteModel.setSearchText}
+                                  autoFocus={true}
+                                  textAlign="left"
+                                  placeholder="Search notes..."
+                                  placeholderTextColor="gray"
+                                  style={noteModel.styles.searchInputText}
+                                />
+                            </View>
+                        )}
+                    </View>
+                    <View style={noteModel.styles.searchButtonHolder}>
+                        <TouchableOpacity
+                            onPress={()=>{
+                                noteModel.setSearchEnable(curr => !curr)
+                            }}
+                        >
+                            <Image
+                                style={noteModel.styles.searchIconImage}
+                                source={noteModel.scheduleScreenButtons.SEARCH_ICON} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
                  <View style={noteModel.styles.notesListContainer}>
-                    {noteModel?.notes?.length > 0 && (
                         <ScrollView
                             contentContainerStyle={noteModel.styles.notesList}
                             showsVerticalScrollIndicator={true}
                         >
-                            {noteModel?.notes?.map((note, index) => {
+                            {noteModel?.filteredNotes?.length > 0 && noteModel?.filteredNotes?.map((note, index) => {
                                 return (
                                     <TouchableOpacity
                                         style={noteModel.styles.noteItemContainer}
@@ -59,7 +78,6 @@ const NoteScreen = () => {
                                 );
                             })}
                         </ScrollView>
-                    )}
                     <TouchableOpacity 
                         style={noteModel.styles.newNoteHolder}
                         onPress={()=>noteModel.handleNoteClick()}

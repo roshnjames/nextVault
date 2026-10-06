@@ -16,6 +16,7 @@ const useAddNoteViewModel = (props) =>{
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDetails, setNoteDetails] = useState('');
     const noteEditMode = useRef(false);
+    const [navBack, setNavBack] = useState(false);
 
     useFocusEffect(
         useCallback(()=>{
@@ -55,13 +56,14 @@ const useAddNoteViewModel = (props) =>{
                 const updateRes = await updateNoteById(noteId, noteTitle, noteDetails);
                 if(!updateRes) throw new Error(editTaskScreenTexts.UPDATE_FAILED);
                 setPopupText(noteScreenTexts.NOTE_UPDATE_SUCCESS);
+                setNavBack(true);
             }else{
                 const insertRes = await insertNewNote(noteTitle, noteDetails);
                 if(!insertRes) throw new Error(commonTexts.FAILED);
                 setPopupText(noteScreenTexts.NOTE_SAVE_SUCCESS);
+                setNavBack(true);
             }
         }catch(error){
-            console.log('error is',error);
             setPopupText(commonTexts.FAILED);
         }finally{
             setLoading(false);
@@ -75,6 +77,7 @@ const useAddNoteViewModel = (props) =>{
             const delRes = await deleteNoteById(noteId);
             if(delRes !== 1) throw new Error(homeScreenTexts.DELETE_FAILED);
             setPopupText(noteScreenTexts.NOTE_DELETE_SUCCESS);
+            setNavBack(true);
         }catch(error){
             setPopupText(homeScreenTexts.DELETE_FAILED);
         }finally{
@@ -84,6 +87,7 @@ const useAddNoteViewModel = (props) =>{
     };
 
     const handleNavigation = () => {
+        setNavBack(false);
         navigation.navigate('notes');
     };
 
@@ -105,7 +109,9 @@ const useAddNoteViewModel = (props) =>{
         popupText,
         popupVisible,
         setPopupVisible,
-        handleNavigation
+        handleNavigation,
+        navBack,
+        setNavBack,
     }
 };
 
