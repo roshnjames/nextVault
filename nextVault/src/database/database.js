@@ -26,7 +26,9 @@ export const initDatabase = async () => {
                 task_image TEXT,
                 task_date TEXT NOT NULL,
                 task_tag TEXT NOT NULL,
-                task_is_completed INTEGER DEFAULT 0
+                task_is_completed INTEGER DEFAULT 0,
+                task_time TEXT NOT NULL,
+                task_notification_id TEXT
             );
         `);
 
@@ -55,16 +57,20 @@ export const insertNewTask = async (taskData) => {
                 task_alert,
                 task_image,
                 task_date,
-                task_tag
+                task_tag,
+                task_time,
+                task_notification_id
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             taskData.task_name,
             taskData.task_priority,
             taskData.task_details,
             taskData.task_alert ?? 0,
             taskData.task_image ?? null,
             taskData.task_date,
-            taskData.task_tag
+            taskData.task_tag,
+            taskData.task_time,
+            taskData.task_notification_id
         );
 
         console.log('task inserted:', result);

@@ -46,6 +46,7 @@ export const addTaskScreenTexts = {
     TASK_DESC:"Details",
     TASK_PRIORITY:"Priority",
     TASK_ALERT:"Alert Me",
+    TASK_TIME:"Choose Time",
     TASK_IMAGE:"Take picture",
     TASK_IMAGE_CAPTURE:'Open Camera',
     TASK_RECAPTURE:'Recapture',
