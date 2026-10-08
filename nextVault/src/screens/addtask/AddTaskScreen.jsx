@@ -1,3 +1,4 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import { Image, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import PopupComponent from '../../components/PopupComponent';
@@ -56,6 +57,21 @@ const AddTaskScreen = ({ route }) => {
                             maxLength={150}
                             multiline
                         />
+                    </View>
+                    <View style={addTaskModel.styles.taskNameHolder}>
+                        <Text style={addTaskModel.styles.addTaskLabelText}>
+                            {addTaskModel.addTaskScreenTexts.TASK_TIME}
+                        </Text>
+                        <View style={addTaskModel.styles.dropDownPicker}>
+                            <TouchableOpacity 
+                            onPress={()=>addTaskModel.setIsShowTimePickerVisible(true)}
+                        >
+                            <Text style={addTaskModel.styles.addTaskSwitchText}>
+                                {addTaskModel.taskTime}
+                            </Text>
+                        </TouchableOpacity>
+                        </View>
+                        
                     </View>
                     <View style={addTaskModel.styles.taskNameHolder}>
                         <Text style={addTaskModel.styles.addTaskLabelText}>
@@ -126,6 +142,15 @@ const AddTaskScreen = ({ route }) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                {addTaskModel.isTimePickerVisible && (
+                  <DateTimePicker 
+                    value={addTaskModel.getTImePickerValue()}
+                    mode="time"
+                    display="clock"   
+                    onValueChange={addTaskModel.handleTimeUpdation}
+                    onDismiss={() => addTaskModel.setIsShowTimePickerVisible(false)}
+                  />  
+                )}
             </View>
             {addTaskModel.popupVisible && (
                 <PopupComponent

@@ -12,6 +12,7 @@ import { addTaskPriorityVals } from '../../utils/dropDownValues';
 const useAddTaskViewModel = ({ route }) => {
     const navigation = useNavigation();
     const date = route?.params.date;
+    const now = new Date();
     const { setHeader, setLoading, setPopupVisible, setPopupText, popupVisible, popupText } = useContext(TaskContext);
     const styles = addTaskScreenStyles();
 
@@ -25,6 +26,9 @@ const useAddTaskViewModel = ({ route }) => {
     const addTaskImageDestination = useRef('');
     const [addTaskTag, setAddTaskTag] = useState('Low');
     const newTaskCreated = useRef({});
+    const [taskTime, setTaskTime] = useState(`10:00`);
+    const [isTimePickerVisible, setIsShowTimePickerVisible] = useState(false);
+    const [notificationId,setNotificationId] = useState('');
 
     useFocusEffect(
         useCallback(() => {
@@ -97,6 +101,9 @@ const useAddTaskViewModel = ({ route }) => {
             const isValid = validateNewTask();
             if (isValid) {
                 await new Promise(resolve => setTimeout(resolve, 2000));
+                if(addTaskAlertEnabled){
+                    setNotificationId('notification_id_on');
+                }
                 newTaskCreated.current.task_name = addTaskNewTask;
                 newTaskCreated.current.task_priority = addTaskPriority;
                 newTaskCreated.current.task_details = addTaskNewTaskDetails;
@@ -104,6 +111,8 @@ const useAddTaskViewModel = ({ route }) => {
                 newTaskCreated.current.task_image = addTaskImageCaptured;
                 newTaskCreated.current.task_date = date;
                 newTaskCreated.current.task_tag = addTaskTag;
+                newTaskCreated.current.task_time = taskTime;
+                newTaskCreated.current.task_notification_id = notificationId;
 
                 console.log('new Task :\n', JSON.stringify(newTaskCreated.current));
 
@@ -143,6 +152,33 @@ const useAddTaskViewModel = ({ route }) => {
         }
     }
 
+    const getTImePickerValue = () => {
+        const [hour, min] = taskTime.split(':').map(Number);
+        now.setHours(hour,min,0,0);
+        return now;
+    };
+
+    const handleTimeUpdation = (_,time) =>{
+        try{
+            if(time){
+                const hour = String(time?.getHours()).padStart(2, '0');
+                const min = String(time?.getMinutes()).padStart(2, '0');
+                setTaskTime(`${hour}:${min}`);
+                setIsShowTimePickerVisible(false);
+            }
+        }catch(error){
+            Toast.show({
+                type:'error',
+                position:'bottom',
+                text1:commonTexts.ERROR_OCCURRED,
+                visibilityTime:1800,
+                avoidKeyboard:true,
+                bottomOffset:180
+                
+            });
+        }
+    }
+
     return {
         styles,
         date,
@@ -168,7 +204,13 @@ const useAddTaskViewModel = ({ route }) => {
         setAddTaskTag,
         setPopupVisible,
         popupVisible,
-        popupText
+        popupText,
+        taskTime, 
+        setTaskTime,
+        isTimePickerVisible, 
+        setIsShowTimePickerVisible,
+        handleTimeUpdation,
+        getTImePickerValue
     }
 
 }
