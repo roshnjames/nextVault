@@ -87,6 +87,20 @@ const EditTaskScreen = ({route}) => {
                             multiline
                         />
                     </View>
+                    <View style={[editTaskModel.styles.taskNameHolder, { flex: 0.1 }]}>
+                        <Text style={editTaskModel.styles.addTaskLabelText}>
+                            {editTaskModel.editTaskScreenTexts.TASK_UPDATE_TIME}
+                        </Text>
+                        <View style={editTaskModel.styles.dropDownPicker}>
+                            <TouchableOpacity
+                                onPress={() => editTaskModel.setIsShowTimePickerVisible(true)}
+                            >
+                                <Text style={editTaskModel.styles.addTaskSwitchText}>
+                                    {editTaskModel.t_time}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     <View style={[editTaskModel.styles.taskNameHolder,{flex:0.1}]}>
                         <Text style={editTaskModel.styles.addTaskLabelText}>
                             {editTaskModel.editTaskScreenTexts.TASK_ALERT}
@@ -166,6 +180,15 @@ const EditTaskScreen = ({route}) => {
                     />
                 )
                 }
+                {editTaskModel.IsShowTimePickerVisible && (
+                  <DateTimePicker 
+                    value={editTaskModel.getTImePickerValue()}
+                    mode="time"
+                    display="clock"   
+                    onValueChange={editTaskModel.handleTimeUpdation}
+                    onDismiss={() => editTaskModel.setIsShowTimePickerVisible(false)}
+                  />  
+                )}
                 {editTaskModel.popupVisible && (
                     <PopupComponent
                         visible={editTaskModel.popupVisible}

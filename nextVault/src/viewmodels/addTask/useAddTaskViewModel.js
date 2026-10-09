@@ -177,7 +177,7 @@ const useAddTaskViewModel = ({ route }) => {
                 
             });
         }
-    }
+    };
 
     return {
         styles,

@@ -70,6 +70,7 @@ export const editTaskScreenTexts = {
     TASK_DESC:"Update Details",
     TASK_PRIORITY:"Change Priority",
     TASK_ALERT:"Alert Me",
+    TASK_UPDATE_TIME:"Update time",
     TASK_IMAGE:"Update picture",
     TASK_IMAGE_CAPTURE:'Open Camera',
     TASK_RECAPTURE:'Recapture',

@@ -14,6 +14,7 @@ const useEditTaskViewModel = (params) => {
     const styles = addTaskScreenStyles();
     const taskId = params.taskId;
     const navigation = useNavigation();
+    const now = new Date();
     const folderPath = `${RNFS.DocumentDirectoryPath}/TaskImages`;
     const updateTaskImageDestination = useRef('');
     const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
@@ -21,10 +22,13 @@ const useEditTaskViewModel = (params) => {
     const [t_date, setT_date] = useState('');
     const [t_priority, setT_priority] = useState('');
     const [t_details, setT_details] = useState('');
+    const [t_time,setT_time] = useState('10:00');
     const [t_alarm, setT_alarm] = useState(false);
     const [t_picture, setT_picture] = useState('');
     const [t_tag, setT_tag] = useState('');
+    const [t_notification_id, setT_notification_id] = useState('');
     const [nav,setNav] = useState(false);
+    const [IsShowTimePickerVisible, setIsShowTimePickerVisible] = useState(false);
     
 
     const updateTaskData = (taskData) => {
@@ -33,9 +37,11 @@ const useEditTaskViewModel = (params) => {
             setT_date(taskData?.task_date);
             setT_priority(taskData?.task_priority);
             setT_details(taskData?.task_details);
+            setT_time(taskData?.task_time);
             setT_alarm(taskData?.task_alert === 1);
             setT_picture(taskData?.task_image);
             setT_tag(taskData?.task_tag);
+            setT_notification_id(taskData?.task_notification_id);
         } catch (error) {
             setPopupText(commonTexts.ERROR_SOMETHING);
             setPopupVisible(true);
@@ -139,7 +145,7 @@ const useEditTaskViewModel = (params) => {
         try{
             setLoading(true);
             const updateRes = await updateTaskById(
-                                    taskId,t_name,t_priority,t_details,t_alarm ? 1 : 0,t_picture,t_date,t_tag
+                                    taskId,t_name,t_priority,t_details,t_time,t_alarm ? 1 : 0,t_picture,t_date,t_tag
                                 );
             if(!updateRes) throw new Error(editTaskScreenTexts.UPDATE_FAILED);
             setPopupText(editTaskScreenTexts.UPDATE_SUCCESS);
@@ -155,6 +161,34 @@ const useEditTaskViewModel = (params) => {
     const handleNavigation = () => {
         navigation.navigate('home');
     };
+
+    const getTImePickerValue = () => {
+        const [hour, min] = t_time.split(':').map(Number);
+        now.setHours(hour,min,0,0);
+        return now;
+    };
+
+    const handleTimeUpdation = (_,time) =>{
+        try{
+            if(time){
+                const hour = String(time?.getHours()).padStart(2, '0');
+                const min = String(time?.getMinutes()).padStart(2, '0');
+                setT_time(`${hour}:${min}`);
+                setIsShowTimePickerVisible(false);
+            }
+        }catch(error){
+            Toast.show({
+                type:'error',
+                position:'bottom',
+                text1:commonTexts.ERROR_OCCURRED,
+                visibilityTime:1800,
+                avoidKeyboard:true,
+                bottomOffset:180
+                
+            });
+        }
+    };
+    
 
     return{
         editTaskScreenTexts,
@@ -187,7 +221,13 @@ const useEditTaskViewModel = (params) => {
         handleDateUpdation,
         handleNavigation,
         nav,
-        setNav
+        setNav,
+        IsShowTimePickerVisible, 
+        setIsShowTimePickerVisible,
+        t_time,
+        setT_time,
+        getTImePickerValue,
+        handleTimeUpdation
     };
 };
 

@@ -67,6 +67,7 @@ const useScheduleViewModel = () => {
             if(delRes !== totalTasks) throw new Error(commonTexts.FAILED);
             const updatedTasks = await fetchAllTasks();
             setTasks(updatedTasks);
+            setTotalTasks(0);
             setPopupText(homeScreenTexts.DELETE_SUCCESS);
         }catch(error){
             setPopupText(homeScreenTexts.DELETE_FAILED);
