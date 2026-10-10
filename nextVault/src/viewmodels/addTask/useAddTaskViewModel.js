@@ -1,10 +1,13 @@
 import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
+import * as Notifications from 'expo-notifications';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { Linking } from 'react-native';
 import RNFS from 'react-native-fs';
 import { launchCamera } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import { TaskContext } from '../../context/taskDetails';
-import { insertNewTask } from '../../database/database';
+import { insertNewTask, updateTaskWithNotificationId } from '../../database/database';
+import { scheduleTaskNotification } from '../../notification/notificationService';
 import { addTaskScreenTexts, commonTexts, ON_OFF } from '../../strings/textLoader';
 import addTaskScreenStyles from '../../styles/screens/addTask/addTaskScreen.styles';
 import { addTaskPriorityVals } from '../../utils/dropDownValues';
@@ -13,7 +16,17 @@ const useAddTaskViewModel = ({ route }) => {
     const navigation = useNavigation();
     const date = route?.params.date;
     const now = new Date();
-    const { setHeader, setLoading, setPopupVisible, setPopupText, popupVisible, popupText } = useContext(TaskContext);
+    const { 
+        setHeader, 
+        setLoading, 
+        setPopupVisible, 
+        setPopupText, 
+        popupVisible, 
+        popupText, 
+        notificationPermission, 
+        setNotificationPermission,
+        appState 
+    } = useContext(TaskContext);
     const styles = addTaskScreenStyles();
 
     const [addTaskNewTask, setAddTaskNewTask] = useState('');
@@ -28,7 +41,11 @@ const useAddTaskViewModel = ({ route }) => {
     const newTaskCreated = useRef({});
     const [taskTime, setTaskTime] = useState(`10:00`);
     const [isTimePickerVisible, setIsShowTimePickerVisible] = useState(false);
-    const [notificationId,setNotificationId] = useState('');
+    const new_task_id = useRef('');
+    const resolveAppActive = useRef(null);
+    const resolveEnablePopup = useRef(null);
+    const updatedNotificationPermission = useRef(notificationPermission);
+    const [notificationPopup, setNotificationPopup] = useState(false);
 
     useFocusEffect(
         useCallback(() => {
@@ -41,7 +58,14 @@ const useAddTaskViewModel = ({ route }) => {
             folderExists.current = await RNFS.exists(folderPath);
         }
         checkFolderExists();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (appState === 'active' && resolveAppActive.current) {
+            resolveAppActive.current(true);
+            resolveAppActive.current = null;
+        }
+    }, [appState]);
 
     const addTaskImageSaver = async () => {
         try {
@@ -78,7 +102,14 @@ const useAddTaskViewModel = ({ route }) => {
 
             );
         } catch (error) {
-            console.error('error occurred in image Capture and saving...');
+           Toast.show({
+                type:'error',
+                position:'bottom',
+                text1:addTaskScreenTexts.TASK_IMAGE_FAILURE,
+                visibilityTime:3000,
+                avoidKeyboard:true,
+                bottomOffset:250
+            });
         }
 
     };
@@ -92,8 +123,29 @@ const useAddTaskViewModel = ({ route }) => {
         setAddTaskPriority(1);
         setAddTaskAlertEnabled(true);
         setAddTaskImageCaptured(null);
+        setTaskTime('10:00');
         setAddTaskTag(1);
     }
+
+    const isAppinForeground = () => {
+            return new Promise((resolve) => {
+            resolveAppActive.current = resolve;
+        })
+    };
+    
+    const isPopupContinuePressed = () => {
+        return new Promise((resolve) => {
+            resolveEnablePopup.current = resolve;
+        })
+    };
+
+    const handleNavigateToAppSettings = () =>{
+        setNotificationPopup(false);
+        if (resolveEnablePopup.current) {
+            resolveEnablePopup.current(true);
+            resolveEnablePopup.current = null;
+        }
+    };
 
     const handleTaskSubmit = async () => {
         try {
@@ -101,9 +153,6 @@ const useAddTaskViewModel = ({ route }) => {
             const isValid = validateNewTask();
             if (isValid) {
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                if(addTaskAlertEnabled){
-                    setNotificationId('notification_id_on');
-                }
                 newTaskCreated.current.task_name = addTaskNewTask;
                 newTaskCreated.current.task_priority = addTaskPriority;
                 newTaskCreated.current.task_details = addTaskNewTaskDetails;
@@ -112,12 +161,56 @@ const useAddTaskViewModel = ({ route }) => {
                 newTaskCreated.current.task_date = date;
                 newTaskCreated.current.task_tag = addTaskTag;
                 newTaskCreated.current.task_time = taskTime;
-                newTaskCreated.current.task_notification_id = notificationId;
+                newTaskCreated.current.task_notification_id = '-';
+                
+                const [year,month,day] = date.split('-');
+                const [hour,min] = taskTime.split(':');
 
-                console.log('new Task :\n', JSON.stringify(newTaskCreated.current));
+                const formedDate = new Date(
+                    year,
+                    month-1,
+                    day,
+                    hour,
+                    min,
+                    0
+                );
+
+                if(formedDate.getTime() <= Date.now()){
+                    throw new Error('past');
+                };
+
+                while(!updatedNotificationPermission.current){
+                    const appinForeground = isAppinForeground();
+                    const isPopupPressed = isPopupContinuePressed();
+                    setPopupText(addTaskScreenTexts.TASK_NOTIFICATION_ENABLE);
+                    setNotificationPopup(true);
+                    await isPopupPressed;
+                    await Linking.openSettings();
+                    await appinForeground;
+                    const {status : permission} = await Notifications.getPermissionsAsync();
+                    updatedNotificationPermission.current = permission === 'granted';
+                    if(updatedNotificationPermission.current)
+                        setNotificationPermission(updatedNotificationPermission.current);
+                };
 
                 const res = await insertNewTask(newTaskCreated.current);
-                if (Object.keys(res).length > 0) {
+                if (Object.keys(res).length > 0 && res.changes > 0) {
+                    new_task_id.current = res?.lastInsertRowId;
+
+                    const task_notification_id = await scheduleTaskNotification(
+                        new_task_id.current,
+                        newTaskCreated.current.task_name,
+                        newTaskCreated.current.task_date,
+                        newTaskCreated.current.task_time
+                    );
+
+                    if(!task_notification_id) throw new Error(commonTexts.ERROR_OCCURRED);
+
+                    const updateNotificationIdRes = await updateTaskWithNotificationId(
+                                                        new_task_id.current,
+                                                        task_notification_id,
+                                                    );
+                    if(!updateNotificationIdRes) throw new Error(commonTexts.FAILED);
                     resetTaskData();
 
                     Toast.show({
@@ -139,18 +232,23 @@ const useAddTaskViewModel = ({ route }) => {
                         })
                     );
                 } else {
-                    setPopupText('Failed to save task!');
                     throw new Error('Failed');             }
             } else {
-                setPopupText('Please enter the required fields!');
                 throw new Error('fields');
             }
         } catch (error) {
-            setPopupVisible(true);
+            if (error.message === 'past') {
+                setPopupText(addTaskScreenTexts.TASK_PAST_TIME);
+            } else if(error.message === 'fields'){
+                setPopupText(addTaskScreenTexts.TASK_FIELD_EMPTY);
+            }else{
+                setPopupText(addTaskScreenTexts.TASK_ADD_FAILED);
+            }
         } finally {
             setLoading(false);
+            setPopupVisible(true);
         }
-    }
+    };
 
     const getTImePickerValue = () => {
         const [hour, min] = taskTime.split(':').map(Number);
@@ -210,7 +308,10 @@ const useAddTaskViewModel = ({ route }) => {
         isTimePickerVisible, 
         setIsShowTimePickerVisible,
         handleTimeUpdation,
-        getTImePickerValue
+        getTImePickerValue,
+        notificationPopup, 
+        setNotificationPopup,
+        handleNavigateToAppSettings
     }
 
 }

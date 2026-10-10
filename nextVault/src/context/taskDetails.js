@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { requestNotificationPermission } from "../notification/notificationService";
 
 export const TaskContext = createContext();
 
@@ -10,6 +11,12 @@ export const TaskContextProvider = ({children}) => {
     const [tasks,setTasks] = useState([]);
     const [notes, setNotes] = useState([]);
     const [disableBackButton,setDisableBackButton] = useState(false);
+    const [appState, setAppState] = useState('');
+    const [notificationPermission, setNotificationPermission] = useState(false);
+    const setGlobalNotificationPermission = async() => {
+        const permission = await requestNotificationPermission();
+        setNotificationPermission(permission);
+    };
 
     return (
         <TaskContext.Provider
@@ -27,7 +34,12 @@ export const TaskContextProvider = ({children}) => {
                 notes, 
                 setNotes,
                 disableBackButton,
-                setDisableBackButton
+                setDisableBackButton,
+                setGlobalNotificationPermission,
+                notificationPermission, 
+                setNotificationPermission,
+                appState, 
+                setAppState
             }}
         >
             {children}

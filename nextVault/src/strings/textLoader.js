@@ -50,7 +50,12 @@ export const addTaskScreenTexts = {
     TASK_IMAGE:"Take picture",
     TASK_IMAGE_CAPTURE:'Open Camera',
     TASK_RECAPTURE:'Recapture',
-    TASK_TAG:'Tag'
+    TASK_TAG:'Tag',
+    TASK_PAST_TIME:"Cannot set past time...",
+    TASK_NOTIFICATION_ENABLE:"Enable notifications!",
+    TASK_ADD_FAILED:"Failed to add task...\nRetry",
+    TASK_FIELD_EMPTY:"Please enter the required fields!",
+    TASK_IMAGE_FAILURE:"Failed to capture image..."
 };
 
 export const homeScreenTexts = {
