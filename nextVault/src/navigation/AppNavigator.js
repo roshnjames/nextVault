@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, StatusBar, View } from 'react-native';
+import { ActivityIndicator, AppState, StatusBar, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import BottomMenu from '../components/BottomMenu';
@@ -20,11 +20,29 @@ const Stack = createNativeStackNavigator();
 const styles = appHolderStyles();
 
 const AppNavigator = () => {
-    const { loading } = useContext(TaskContext);
+    const { loading, setLoading, setGlobalNotificationPermission, setAppState} = useContext(TaskContext);
     const [activeTab, setActiveTab] = useState('home');
 
     useEffect(() => {
+        const setUpNotifications = async() => {
+            await setGlobalNotificationPermission();
+        };
+
+        setLoading(true);
+        const appState = AppState.addEventListener(
+            'change',
+            (currentAppState) => {
+                setAppState(currentAppState);
+            }
+        );
+
         initDatabase();
+        setUpNotifications();
+        setLoading(false);
+
+        return () => {
+            appState.remove();
+        }
     }, []);
 
     const handleNavigationStateChange = (state) => {

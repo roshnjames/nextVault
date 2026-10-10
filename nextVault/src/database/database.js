@@ -156,6 +156,22 @@ export const updateTaskById = async(t_id,t_name,t_priority,t_details,t_time,t_al
     }
 };
 
+export const updateTaskWithNotificationId = async(t_id,t_notification_id,table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const updateQuery = `UPDATE ${table_name} SET
+                            task_notification_id = ?
+                            WHERE task_id = ?`;
+        const updateRes = await database.runAsync(
+                                updateQuery,
+                                [t_notification_id,t_id]
+                            );
+        return updateRes.changes === 1;
+    }catch(error){
+        throw error;
+    }
+};
+
 export const fetchTaskByDate = async(date, table_name = 'next_tasks') => {
     try{
         const database = await createDatabase();

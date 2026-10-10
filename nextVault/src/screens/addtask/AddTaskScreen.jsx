@@ -160,6 +160,13 @@ const AddTaskScreen = ({ route }) => {
                     setClosePopup={addTaskModel.setPopupVisible}
                 />
             )}
+            {addTaskModel.notificationPopup && (
+                <PopupComponent
+                    visible={addTaskModel.notificationPopup}
+                    popupText={addTaskModel.popupText}
+                    setClosePopup={()=>addTaskModel.handleNavigateToAppSettings()}
+                />
+            )}
         </View>
     )
 
