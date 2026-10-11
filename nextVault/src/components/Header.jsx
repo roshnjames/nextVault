@@ -28,7 +28,7 @@ const Header = () => {
                     {header}
                 </Text>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('home')}
+                    onPress={()=>navigation.navigate('settings')}
                 >
                     <Image
                         source={headerImages.SETTINGS}

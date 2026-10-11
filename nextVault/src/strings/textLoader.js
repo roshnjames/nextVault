@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+
 export const ON_OFF ={
     ONN:'ON',
     OFF:'OFF'
@@ -32,7 +34,7 @@ export const bottomMenuTexts = {
 };
 
 export const scheduleScreenTexts ={
-    HEADING:"Schedule task here!",
+    HEADING:"Schedule",
     ADD_TASK:"Add new task...",
     SELECT_DATE:"Select a day!",
     DELETE_TASK:(totalTasks) => `Delete ${totalTasks} task of the day`,
@@ -60,7 +62,7 @@ export const addTaskScreenTexts = {
 };
 
 export const homeScreenTexts = {
-    YOUR_TASKS:"Your Tasks",
+    YOUR_TASKS:"Tasks",
     TASKS:"Tasks",
     SELECT_DATE:"Select Date",
     DELETE_SUCCESS:"Task Deleted!",
@@ -102,4 +104,30 @@ export const noteScreenTexts ={
 
 export const settingsScreenTexts = {
     HEADER:"Settings",
+    RETRY:"Something went wrong...\nPlease retry!",
+    DELETE_ALL_NOTIFICATIONS:"Delete all notifications",
+    DELETE_ALL_NOTIFICATIONS_DETAILS:"This will delete all existing notifications",
+    DELETE_ALL_TASKS:"Delete all tasks", 
+    DELETE_ALL_TASKS_DETAILS:"This will delete all existing tasks", 
+    DELETE_ALL_NOTES:"Delete all notes", 
+    DELETE_ALL_NOTES_DETAILS:"This will delete all existing notes",
+    DOWNLOAD_PDF:"Download data as PDF",
+    DOWNLOAD_PDF_DETAILS:"Download tasks and notes as PDF to save locally",
+    APP_INFO:"App info",
+    APP_INFO_DETAILS:`Ver : ${Constants.expoConfig?.version || '1.0.0'}`, 
+    DEV_INFO:"Dev info", 
+    DEV_INFO_DETAILS:(dev = 'roshinjames') => `${dev} :)`,
+    DELETE_ALL_NOTIFICATIONS_CONFIRM:"Are you sure to delete all set Notificaions?",
+    DELETE_ALL_TASKS_CONFIRM:"Are you sure to delete all set Tasks?",
+    DELETE_ALL_NOTES_CONFIRM:"Are you sure to delete all saved Notes?",
+    DOWNLOAD_PDF_NOTES_CONFIRM:"This will download all set tasks and saved notes into a single PDF file.",
+    DELETE_SUCCESS_ALL_NOTIFICATION:"All notification deleted!",
+    DELETE_FAILED_ALL_NOTIFICATION:"Failed to delete all notification...",
+    NOTIFICATION_EMPTY:"No existing notifications...",
+    TASK_EMPTY:"No existing tasks...",
+    DELETE_SUCCESS_ALL_TASK:"All tasks deleted!",
+    DELETE_FAILED_ALL_TASK:"Failed to delete all tasks...",
+    NOTE_EMPTY:"No existing notes...",
+    DELETE_SUCCESS_ALL_NOTE:"All notes deleted!",
+    DELETE_FAILED_ALL_NOTE:"Failed to delete all notes...",
 };

@@ -2,7 +2,7 @@
   "expo": {
     "name": "nextVault",
     "slug": "nextVault",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/plane-mode.png",
     "userInterfaceStyle": "light",
@@ -28,7 +28,8 @@
     "plugins": [
       "@react-native-community/datetimepicker",
       "expo-sqlite",
-      "expo-notifications"
+      "expo-notifications",
+      "expo-sharing"
     ]
   }
 }

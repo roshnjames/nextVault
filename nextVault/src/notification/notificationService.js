@@ -87,7 +87,15 @@ export const cancelScheduledNotification = async(notificationId) => {
         await Notifications.cancelScheduledNotificationAsync(notificationId);
         return true;
     }catch(error){
-        console.error('error occurred in cancellation ',error);
+        throw error;
+    }
+};
+
+export const cancelAllScheduledNotifications = async() => { 
+    try{
+        await Notifications.cancelAllScheduledNotificationsAsync();
+        return true;
+    }catch(error){
         throw error;
     }
 };

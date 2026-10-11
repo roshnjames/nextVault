@@ -15,6 +15,7 @@ import HomeScreen from '../screens/homescreen/HomeScreen';
 import NoteScreen from '../screens/notes/NoteScreen';
 import ScheduleScreen from '../screens/schedule/ScheduleScreen';
 import appHolderStyles from '../styles/navigator/appNavigator.styles';
+import SettingsScreen from '../screens/settings/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 const styles = appHolderStyles();
@@ -96,6 +97,11 @@ const AppNavigator = () => {
                          <Stack.Screen
                             name="addNote"
                             component={AddNoteScreen}
+                        />
+
+                         <Stack.Screen
+                            name="settings"
+                            component={SettingsScreen}
                         />
 
                     </Stack.Navigator>

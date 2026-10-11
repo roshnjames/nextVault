@@ -259,3 +259,36 @@ export const deleteNoteById = async(noteId, table_name = 'next_notes') => {
         throw error;
     }
 };
+
+export const fetchNotificationIds = async(table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const fetchQuery = `SELECT task_notification_id FROM ${table_name}`;
+        const notificationRes = await database.getAllAsync(fetchQuery);
+        return notificationRes;
+    }catch(error){
+        throw error;
+    }
+};
+
+export const deleteAllNotifications = async(table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const deleteQuery = `UPDATE ${table_name} SET  task_alert = ?, task_notification_id = ?`;
+        const deleteRes = await database.runAsync(deleteQuery,[0, '-']);
+        return deleteRes.changes;
+    }catch(error){
+        throw error;
+    }
+};  
+
+export const deleteAllContents = async(table_name = 'next_tasks') => {
+    try{
+        const database = await createDatabase();
+        const deleteQuery = `DELETE FROM ${table_name}`;
+        const deleteRes = await database.runAsync(deleteQuery);
+        return deleteRes.changes;
+    }catch(error){
+        throw error;
+    }
+};
