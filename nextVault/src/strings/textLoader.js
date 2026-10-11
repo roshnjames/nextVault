@@ -38,6 +38,7 @@ export const scheduleScreenTexts ={
     DELETE_TASK:(totalTasks) => `Delete ${totalTasks} task of the day`,
     EDIT_TASK:"Edit task",
     DAY_TASKS:(totalTasks) => `${totalTasks} task set for the day.`,
+    DATE_PAST:"Past days cannot be selected!"
 };
 
 export const addTaskScreenTexts = {
@@ -52,7 +53,7 @@ export const addTaskScreenTexts = {
     TASK_RECAPTURE:'Recapture',
     TASK_TAG:'Tag',
     TASK_PAST_TIME:"Cannot set past time...",
-    TASK_NOTIFICATION_ENABLE:"Enable notifications!",
+    TASK_NOTIFICATION_ENABLE:"Enable notifications!\n please enable sound also",
     TASK_ADD_FAILED:"Failed to add task...\nRetry",
     TASK_FIELD_EMPTY:"Please enter the required fields!",
     TASK_IMAGE_FAILURE:"Failed to capture image..."
@@ -81,7 +82,8 @@ export const editTaskScreenTexts = {
     TASK_RECAPTURE:'Recapture',
     TASK_TAG:'Modify Tag',
     UPDATE_FAILED:"Failed to update...",
-    UPDATE_SUCCESS:"Task updated!"
+    UPDATE_SUCCESS:"Task updated!",
+    UPCOMING_DATE:"Please select upcoming date and time..."
 };
 
 export const noteScreenTexts ={
@@ -96,4 +98,8 @@ export const noteScreenTexts ={
     NOTE_UPDATE_SUCCESS:"Note updated!",
     NOTE_DELETE:"Delete Note",
     NOTE_DELETE_SUCCESS:"Deleted!"
+};
+
+export const settingsScreenTexts = {
+    HEADER:"Settings",
 };

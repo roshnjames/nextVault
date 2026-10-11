@@ -1,6 +1,15 @@
 import * as Notifications from 'expo-notifications';
-import { Linking, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowBanner: true,
+        shouldShowList: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+    }),
+});
 
 export const requestNotificationPermission = async() => {
     try{
@@ -36,7 +45,6 @@ export const requestNotificationPermission = async() => {
 
 export const scheduleTaskNotification = async(task_id,name,date,time) => {
     try{
-        console.log('before value chck', date, time);
         if(!date || !time) return false;
 
         const [year,month,day] = date.split('-').map(Number);
@@ -50,13 +58,9 @@ export const scheduleTaskNotification = async(task_id,name,date,time) => {
             min,
             0
         );
-        console.log('Reminder ms:', reminderTimestamp.getTime());
-console.log('Current ms:', Date.now());
-
-        console.log('beforepast check',reminderTimestamp)
+       
         if(reminderTimestamp.getTime() <= Date.now()) throw new Error('past');
 
-        console.log('afterpast chcke');
         const notificationId = await Notifications.scheduleNotificationAsync({
                 content: {
                     title: 'Upcoming activity',
@@ -71,10 +75,19 @@ console.log('Current ms:', Date.now());
                 },
             });
 
-            console.log('notificaitonis ',notificationId)
         return notificationId;
     }catch(error){
         console.log('erorro',error);
+        throw error;
+    }
+};
+
+export const cancelScheduledNotification = async(notificationId) => { 
+    try{
+        await Notifications.cancelScheduledNotificationAsync(notificationId);
+        return true;
+    }catch(error){
+        console.error('error occurred in cancellation ',error);
         throw error;
     }
 };
