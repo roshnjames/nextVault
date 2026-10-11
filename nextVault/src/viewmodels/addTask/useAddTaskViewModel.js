@@ -244,9 +244,9 @@ const useAddTaskViewModel = ({ route }) => {
             }else{
                 setPopupText(addTaskScreenTexts.TASK_ADD_FAILED);
             }
+            setPopupVisible(true);
         } finally {
             setLoading(false);
-            setPopupVisible(true);
         }
     };
 

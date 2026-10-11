@@ -69,7 +69,7 @@ const ScheduleScreen = () => {
                                 </Text>
                             </TouchableOpacity>
                         )}
-                        <TouchableOpacity style={scheduleModel.styles.lowerButtonsStyle}>
+                        {/* <TouchableOpacity style={scheduleModel.styles.lowerButtonsStyle}>
                             <Image
                                 source={scheduleModel.scheduleScreenButtons.EDIT_TASK}
                                 style={scheduleModel.styles.bottomSectionLowerIconStyles}
@@ -77,7 +77,7 @@ const ScheduleScreen = () => {
                             <Text style={scheduleModel.styles.lowerButtonTextStyle}>
                                 {scheduleModel.scheduleScreenTexts.EDIT_TASK}
                             </Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>}
                 </View>
                 {scheduleModel.popupVisible && (

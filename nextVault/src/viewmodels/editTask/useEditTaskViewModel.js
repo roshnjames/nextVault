@@ -5,6 +5,7 @@ import { launchCamera } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
 import { TaskContext } from "../../context/taskDetails";
 import { fetchTaskById, updateTaskById } from "../../database/database";
+import { cancelScheduledNotification, scheduleTaskNotification } from "../../notification/notificationService";
 import { commonTexts, editTaskScreenTexts, ON_OFF } from "../../strings/textLoader";
 import addTaskScreenStyles from "../../styles/screens/addTask/addTaskScreen.styles";
 import { addTaskPriorityVals } from "../../utils/dropDownValues";
@@ -29,19 +30,27 @@ const useEditTaskViewModel = (params) => {
     const [t_notification_id, setT_notification_id] = useState('');
     const [nav,setNav] = useState(false);
     const [IsShowTimePickerVisible, setIsShowTimePickerVisible] = useState(false);
+    const currentTime = useRef(t_time);
+    const updatedNotificationId = useRef('-');
+    const currentDate = useRef('');
+    const alertEnabled = useRef(false);
     
 
     const updateTaskData = (taskData) => {
         try {
             setT_name(taskData?.task_name);
             setT_date(taskData?.task_date);
+            currentDate.current = taskData?.task_date;
             setT_priority(taskData?.task_priority);
             setT_details(taskData?.task_details);
             setT_time(taskData?.task_time);
-            setT_alarm(taskData?.task_alert === 1);
+            currentTime.current = taskData?.task_time;
+            setT_alarm(taskData?.task_alert === 1 && taskData?.task_notification_id !== '-');
+            alertEnabled.current = taskData?.task_alert === 1 && taskData?.task_notification_id !== '-';
             setT_picture(taskData?.task_image);
             setT_tag(taskData?.task_tag);
             setT_notification_id(taskData?.task_notification_id);
+            updatedNotificationId.current = taskData?.task_notification_id;
         } catch (error) {
             setPopupText(commonTexts.ERROR_SOMETHING);
             setPopupVisible(true);
@@ -144,14 +153,46 @@ const useEditTaskViewModel = (params) => {
     const handleTaskUpdate = async() => {
         try{
             setLoading(true);
+            const today = new Date();
+            const formedDate = new Date(`${t_date}T${t_time}:00`);
+            if(formedDate < today){
+                throw new Error('pasttimestamp');
+            };
+
+            const needNotificationUpdation = (currentTime.current !== t_time) ||
+                (currentDate.current !== t_date) ||
+                (alertEnabled.current !== t_alarm);
+            if (needNotificationUpdation) {
+                if (t_notification_id !== '-' && t_notification_id) {
+                    await cancelScheduledNotification(t_notification_id);
+                    updatedNotificationId.current = '-'
+                }
+                if (t_alarm) {
+                    updatedNotificationId.current = await scheduleTaskNotification(taskId, t_name, t_date, t_time);
+                }
+
+            };
+
             const updateRes = await updateTaskById(
-                                    taskId,t_name,t_priority,t_details,t_time,t_alarm ? 1 : 0,t_picture,t_date,t_tag
+                                    taskId,
+                                    t_name,
+                                    t_priority,
+                                    t_details,
+                                    t_time,t_alarm ? 1 : 0,
+                                    t_picture,
+                                    t_date,
+                                    t_tag,
+                                    updatedNotificationId.current
                                 );
             if(!updateRes) throw new Error(editTaskScreenTexts.UPDATE_FAILED);
             setPopupText(editTaskScreenTexts.UPDATE_SUCCESS);
             setNav(true);
         }catch(error){
-            setPopupText(editTaskScreenTexts.UPDATE_FAILED);
+            if(error.message === 'pasttimestamp'){
+                setPopupText(editTaskScreenTexts.UPCOMING_DATE);
+            }else{
+                setPopupText(editTaskScreenTexts.UPDATE_FAILED);
+            }
         }finally{
             setLoading(false);
             setPopupVisible(true);

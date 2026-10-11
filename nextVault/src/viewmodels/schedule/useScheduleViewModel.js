@@ -47,17 +47,41 @@ const useScheduleViewModel = () => {
     },[selectedDate])
 
     const checkSelectedDate = (dt) => {
-        if (selectedDate === dt.dateString) {
-            setSelectedDate(null);
-        } else {
-            setSelectedDate(dt.dateString);
+        try {
+            if (selectedDate === dt.dateString) {
+                setSelectedDate(null);
+            } else {
+                setSelectedDate(dt.dateString);
+            }
+        } catch (error) {
+            setPopupText(commonTexts.ERROR_OCCURRED);
+            setPopupVisible(true);
         }
     };
 
     const handleAddTaskPress = () => {
-        navigation.navigate('addTask', {
-            date: selectedDate
-        })
+        try {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dateFormed = new Date(`${selectedDate}T00:00:00`);
+
+            if (dateFormed < today) {
+                setSelectedDate(new Date().toISOString().split('T')[0]);
+                throw new Error('pastdate');
+            }
+
+            navigation.navigate('addTask', {
+                date: selectedDate
+            });
+        } catch (error) {
+
+            if (error.message === 'pastdate') {
+                setPopupText(scheduleScreenTexts.DATE_PAST);
+            } else {
+                setPopupText(commonTexts.ERROR_OCCURRED);
+            }
+            setPopupVisible(true);
+        }
     };
 
     const handleTaskDeleteByDate = async() => {
