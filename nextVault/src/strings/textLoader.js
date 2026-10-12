@@ -24,7 +24,8 @@ export const commonTexts = {
     ERROR_SOMETHING : "Something went wrong!",
     IMAGE_FAILED:'Failed to save image!',
     FAILED:'Failed...',
-    DATA_FETCH_FAILED:"Failed to fetch data..."
+    DATA_FETCH_FAILED:"Failed to fetch data...",
+    STORAGE_PERMISSION:"File not Saved locally!"
 };
 
 export const bottomMenuTexts = {
@@ -66,7 +67,8 @@ export const homeScreenTexts = {
     TASKS:"Tasks",
     SELECT_DATE:"Select Date",
     DELETE_SUCCESS:"Task Deleted!",
-    DELETE_FAILED:"Failed to Delete..."
+    DELETE_FAILED:"Failed to Delete...",
+    PENDING_TASKS:"Pending..."
 };
 
 export const editTaskScreenTexts = {
@@ -130,4 +132,6 @@ export const settingsScreenTexts = {
     NOTE_EMPTY:"No existing notes...",
     DELETE_SUCCESS_ALL_NOTE:"All notes deleted!",
     DELETE_FAILED_ALL_NOTE:"Failed to delete all notes...",
+    DB_EMPTY:"No existing data...",
+    PDF_DOWNLOAD_SUCCESS:"PDF download success!",
 };

@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { TaskContext } from "../../context/taskDetails";
-import { deleteAllContents, deleteAllNotifications, deleteAllTasks, fetchAllNotes, fetchAllTasks, fetchNotificationIds } from "../../database/database";
+import { deleteAllContents, deleteAllNotifications, fetchAllNotes, fetchAllTasks, fetchNotificationIds } from "../../database/database";
 import { cancelAllScheduledNotifications } from "../../notification/notificationService";
+import { generateDataPDF } from "../../pdf/pdfGenerator";
 import { commonTexts, settingsScreenTexts } from "../../strings/textLoader";
 import settingsScreenStyles from "../../styles/screens/settings/settingsScreen.styles";
 import { settingsScreenContentList } from "../../utils/dropDownValues";
@@ -83,6 +84,29 @@ const useSettingsViewModel = () => {
         }
     };
 
+    const handleDownloadAllDataAsPDF = async() => {
+        try{
+            const currentTasks = await fetchAllTasks();
+            const currentNotes = await fetchAllNotes();
+            if (currentTasks?.length === 0 && currentNotes?.length === 0) throw new Error('empty');
+
+            const taskPdfGenerated = await generateDataPDF(currentTasks,currentNotes);
+            if (!taskPdfGenerated) throw new Error(commonTexts.FAILED);
+
+            console.log('pdf location : ',taskPdfGenerated);
+            setPopupText(settingsScreenTexts.PDF_DOWNLOAD_SUCCESS);
+            return true;
+        }catch(error){
+            if (error.message === 'empty') {
+                setPopupText(settingsScreenTexts.DB_EMPTY);
+            } else if(error.message === 'permission'){
+                setPopupText(commonTexts.STORAGE_PERMISSION);
+            }else{
+                setPopupText(commonTexts.ERROR_OCCURRED);
+            }
+        }
+    };
+
     const handleSettingsItemPress = (itemIndex) => {
         try{
             switch(itemIndex){
@@ -112,12 +136,12 @@ const useSettingsViewModel = () => {
              switch(selectedItem){
                 case 1: await handleDeleteAllNotifications();
                         break;
-                case 2: handleDeleteAllTasks();
+                case 2: await handleDeleteAllTasks();
                         break;
-                case 3: handleDeleteAllNotes();
+                case 3: await handleDeleteAllNotes();
                         break;
-                // case 4: handleDownloadAllDataAsPDF();
-                        // break;
+                case 4: await handleDownloadAllDataAsPDF();
+                        break;
                 // default: throw new Error(commonTexts.ERROR_SOMETHING);
             };
         }finally{
