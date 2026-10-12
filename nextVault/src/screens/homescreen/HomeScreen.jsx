@@ -42,6 +42,18 @@ const HomeScreen = () => {
                 }
                 {homeScreenModel.tasks?.length > 0 && <>
                 <View style={homeScreenModel.styles.filterContainer}>
+                    {homeScreenModel.pendingTasks && (
+                        <View style={[homeScreenModel.styles.filterButtonContainer,{flex: 0.4,backgroundColor:'rgb(230, 112, 94)'}]}>
+                        <TouchableOpacity 
+                            style={homeScreenModel.styles.filterButton}
+                            onPress={()=>homeScreenModel.handlePendingTasksPress()}
+                        >
+                            <Text style={homeScreenModel.styles.filterDateText}>
+                                {homeScreenModel.homeScreenTexts.PENDING_TASKS}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    )}
                     <Text style={homeScreenModel.styles.filterText}>
                         {homeScreenModel.homeScreenTexts.SELECT_DATE}
                     </Text>

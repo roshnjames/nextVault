@@ -62,12 +62,12 @@ const homeScreenStyles = () => StyleSheet.create({
     },
     filterDateText:{
         fontFamily:'monospace',
-        fontSize:14,
+        fontSize:13,
         color:'cyan',
         color:'black'
     },
     filterButtonContainer:{
-        flex:0.5,
+        flex:0.4,
         height:'70%',
         backgroundColor:'rgb(14, 164, 178)',
         justifyContent:'center',
