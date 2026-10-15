@@ -13,6 +13,8 @@ export const settingsScreenContentList = [
     {value : 2, label : settingsScreenTexts.DELETE_ALL_TASKS, details: settingsScreenTexts.DELETE_ALL_TASKS_DETAILS},
     {value : 3, label : settingsScreenTexts.DELETE_ALL_NOTES, details: settingsScreenTexts.DELETE_ALL_NOTES_DETAILS},
     {value : 4, label : settingsScreenTexts.DOWNLOAD_PDF, details: settingsScreenTexts.DOWNLOAD_PDF_DETAILS},
+    {value : 5, label : settingsScreenTexts.DOWNLOAD_BACKUP, details: settingsScreenTexts.DOWNLOAD_BACKUP_DETAILS},
+    {value : 6, label : settingsScreenTexts.RESTORE_BACKUP, details: settingsScreenTexts.RESTORE_BACKUP_DETAILS},
     {value : 0, label : settingsScreenTexts.APP_INFO, details: settingsScreenTexts.APP_INFO_DETAILS},
     {value : 0, label : settingsScreenTexts.DEV_INFO, details: settingsScreenTexts.DEV_INFO_DETAILS},
 ];
