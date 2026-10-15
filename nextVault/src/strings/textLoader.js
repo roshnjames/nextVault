@@ -123,6 +123,8 @@ export const settingsScreenTexts = {
     DELETE_ALL_TASKS_CONFIRM:"Are you sure to delete all set Tasks?",
     DELETE_ALL_NOTES_CONFIRM:"Are you sure to delete all saved Notes?",
     DOWNLOAD_PDF_NOTES_CONFIRM:"This will download all set tasks and saved notes into a single PDF file.",
+    DOWNLOAD_BACKUP_CONFIRM:"This will download app data as a backup file",
+    RESTORE_BACKUP_CONFIRM:"Upload backup file here to restore data",
     DELETE_SUCCESS_ALL_NOTIFICATION:"All notification deleted!",
     DELETE_FAILED_ALL_NOTIFICATION:"Failed to delete all notification...",
     NOTIFICATION_EMPTY:"No existing notifications...",
@@ -134,4 +136,12 @@ export const settingsScreenTexts = {
     DELETE_FAILED_ALL_NOTE:"Failed to delete all notes...",
     DB_EMPTY:"No existing data...",
     PDF_DOWNLOAD_SUCCESS:"PDF download success!",
+    DOWNLOAD_BACKUP:"Download backup",
+    DOWNLOAD_BACKUP_DETAILS:"Download backup file",
+    RESTORE_BACKUP:"Restore data",
+    RESTORE_BACKUP_DETAILS:"Restore data from backup file",
+    DOWNLOAD_BACKUP_FAILURE:"Backup download failed...",
+    DOWNLOAD_BACKUP_SUCCESS:"Backup downloaded!",
+    RESTORE_UPLOAD_FAILURE:"Restore file upload failed...",
+    STORAGE_PERMISSION:"Download failed\nPlease provide storage access"
 };

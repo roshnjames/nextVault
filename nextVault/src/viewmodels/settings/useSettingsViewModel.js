@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useWindowDimensions } from "react-native";
+import { createAndSaveBackupFile } from "../../backup/backupGeneration";
 import { TaskContext } from "../../context/taskDetails";
 import { deleteAllContents, deleteAllNotifications, fetchAllNotes, fetchAllTasks, fetchNotificationIds } from "../../database/database";
 import { cancelAllScheduledNotifications } from "../../notification/notificationService";
@@ -107,6 +108,32 @@ const useSettingsViewModel = () => {
         }
     };
 
+    const handleDownloadAllDataAsBackup = async() => {
+        try{
+            const fetchedAllTasks = await fetchAllTasks();
+            const allTasks = fetchedAllTasks?.map(({ task_id,task_image,task_notification_id, ...task }) => task)
+            const fetchedallNotes = await fetchAllNotes();
+            const allNotes = fetchedallNotes?.map(({note_id,...note}) => note);
+            if (allTasks.length === 0 && allNotes.length === 0) throw new Error('empty');
+            const allData = {
+                tasks: allTasks,
+                notes: allNotes
+            };
+
+            const saveData = await createAndSaveBackupFile(allData);
+            if(!saveData) throw new Error('failed');
+            setPopupText(settingsScreenTexts.DOWNLOAD_BACKUP_SUCCESS)
+        }catch(error){
+            if (error.message === 'empty') {
+                setPopupText(settingsScreenTexts.DB_EMPTY);
+            }else if (error.message === 'permission') {
+                setPopupText(settingsScreenTexts.STORAGE_PERMISSION);
+            } else {
+                setPopupText(settingsScreenTexts.DOWNLOAD_BACKUP_FAILURE);
+            }
+        }
+    };
+
     const handleSettingsItemPress = (itemIndex) => {
         try{
             switch(itemIndex){
@@ -117,6 +144,10 @@ const useSettingsViewModel = () => {
                 case 2: setSettingsPopupText(settingsScreenTexts.DELETE_ALL_NOTES_CONFIRM);
                         break;
                 case 3: setSettingsPopupText(settingsScreenTexts.DOWNLOAD_PDF_NOTES_CONFIRM);
+                        break;
+                case 4: setSettingsPopupText(settingsScreenTexts.DOWNLOAD_BACKUP_CONFIRM);
+                        break;
+                case 5: setSettingsPopupText(settingsScreenTexts.RESTORE_BACKUP_CONFIRM);
                         break;
                 default: setSettingsPopupText(settingsScreenTexts.RETRY);
                         break;
@@ -141,6 +172,8 @@ const useSettingsViewModel = () => {
                 case 3: await handleDeleteAllNotes();
                         break;
                 case 4: await handleDownloadAllDataAsPDF();
+                        break;
+                case 5: await handleDownloadAllDataAsBackup();
                         break;
                 // default: throw new Error(commonTexts.ERROR_SOMETHING);
             };
