@@ -59,7 +59,7 @@ export const scheduleTaskNotification = async(task_id,name,date,time) => {
             0
         );
        
-        if(reminderTimestamp.getTime() <= Date.now()) throw new Error('past');
+        if(reminderTimestamp.getTime() <= Date.now()) return 'past';
 
         const notificationId = await Notifications.scheduleNotificationAsync({
                 content: {
@@ -71,11 +71,11 @@ export const scheduleTaskNotification = async(task_id,name,date,time) => {
                 trigger: {
                     type: Notifications.SchedulableTriggerInputTypes.DATE,
                     date: reminderTimestamp,
-                    ...(Platform.OS === 'android' ? {channelId : 'task-notification'} : {}),
+                    ...(Platform.OS === 'android' ? {channelId : 'tn-notification'} : {}),
                 },
             });
 
-        return notificationId;
+        return notificationId || false;
     }catch(error){
         console.log('erorro',error);
         throw error;

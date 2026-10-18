@@ -1,6 +1,7 @@
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 import { Platform } from "react-native";
+import * as DocumentPicker from 'expo-document-picker';
 
 export const createAndSaveBackupFile = async(data ={}) => {
     try {
@@ -56,3 +57,28 @@ export const createAndSaveBackupFile = async(data ={}) => {
         throw error;
     }
 };
+
+export const loadDataFromRestoreFile = async() => {
+    try{
+        const result = await DocumentPicker.getDocumentAsync({
+            type: 'application/json',
+            copyToCacheDirectory: true,
+            multiple: false,
+        });
+
+        if(result.canceled) throw new Error('cancelled');
+
+        const selectedFile = result.assets[0];
+
+        const content = await FileSystem.readAsStringAsync(
+            selectedFile.uri
+        );
+
+        const data = JSON.parse(content);
+
+        return data || {};
+
+    }catch(error){
+        throw error;
+    }
+}

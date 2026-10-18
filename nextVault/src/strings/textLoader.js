@@ -135,13 +135,20 @@ export const settingsScreenTexts = {
     DELETE_SUCCESS_ALL_NOTE:"All notes deleted!",
     DELETE_FAILED_ALL_NOTE:"Failed to delete all notes...",
     DB_EMPTY:"No existing data...",
+    RESTORE_FILE_EMPTY:"No data in chosen file",
     PDF_DOWNLOAD_SUCCESS:"PDF download success!",
     DOWNLOAD_BACKUP:"Download backup",
     DOWNLOAD_BACKUP_DETAILS:"Download backup file",
     RESTORE_BACKUP:"Restore data",
     RESTORE_BACKUP_DETAILS:"Restore data from backup file",
     DOWNLOAD_BACKUP_FAILURE:"Backup download failed...",
+    UPLOAD_RESTORE_FAILURE:"Failed to restore data...",
     DOWNLOAD_BACKUP_SUCCESS:"Backup downloaded!",
+    RESTORE_UPLOAD_SUCCESS:"Restore Success!",
     RESTORE_UPLOAD_FAILURE:"Restore file upload failed...",
-    STORAGE_PERMISSION:"Download failed\nPlease provide storage access"
+    RESTORE_FILE_NOT_CHOSEN:"No file was selected...",
+    STORAGE_PERMISSION:"Download failed\nPlease provide storage access",
+    NOTIFICATION_SET_FAILED:"Failed to set Notification...",
+    RESTORE_TASK_FAILED:"Failed to restore all tasks...",
+    RESTORE_NOTE_FAILED:"Failed to restore all notes..."
 };
