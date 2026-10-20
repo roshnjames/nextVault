@@ -7,6 +7,7 @@ import {
     useCallback,
     useContext,
     useEffect,
+    useRef,
     useState
 } from 'react';
 import Toast from 'react-native-toast-message';
@@ -50,6 +51,7 @@ const useHomeScreenViewModel = () => {
     const [filteredTasks, setFilteredTasks] = useState([]);
     const [pendingTasks, setPendingTasks] = useState(false);
     const [activeFilter, setActiveFilter] = useState('date');
+    const isInitialRun = useRef(true);
 
     function getLocalDateString(date = new Date()) {
         const year = date.getFullYear();
@@ -153,9 +155,42 @@ const useHomeScreenViewModel = () => {
         }, [navigation, setDisableBackButton, setLoading, setTasks])
     );
 
+    useEffect(() => {
+        const checkAndDeleteExpiredTasks = async () => {
+            try {
+                setLoading(true);
+                if (!tasks?.length) return
+
+                const one_month_limit = new Date();
+                one_month_limit.setMonth(
+                    one_month_limit.getMonth() - 1
+                );
+
+                for (const task of tasks) {
+                    const [year, month, day] = task.task_date
+                        .split('-')
+                        .map(Number);
+                    const taskDate = new Date(year, month - 1, day);
+                    if (
+                        taskDate < one_month_limit &&
+                        task.task_is_completed === 1
+                    ) {
+                        console.log('iddd',task.task_id)
+                        await deleteTask(task.task_id);
+                    }
+                }
+                isInitialRun.current = false;
+            } catch(_){
+                isInitialRun.current = false;
+            }finally {
+                setLoading(false);
+            }
+        };
+
+        isInitialRun.current && checkAndDeleteExpiredTasks();
+    }, [tasks]);
 
     useEffect(() => {
-
         const now = Date.now();
         const hasPendingTasks = tasks.some(
             task => isPendingTask(task, now)
