@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const homeScreenStyles = () => StyleSheet.create({
+const homeScreenStyles = (height, width) => StyleSheet.create({
     majorContainer:{
         flex:1,
         backgroundColor: 'rgb(34, 176, 208)',
@@ -90,28 +90,28 @@ const homeScreenStyles = () => StyleSheet.create({
     },
     taskItemContainer: {
         width: '90%',
-        height: 270,
+        height: height * 0.55,
         flexDirection: 'column',
-        backgroundColor: 'rgb(158, 205, 30)',
+        backgroundColor: 'rgb(18, 52, 124)',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '2%',
         borderRadius: 10,
-        borderWidth: 1,
-        borderColor: 'rgb(1, 3, 0)', 
+        borderWidth: 5,
+        borderColor: 'rgb(18, 52, 124)', 
         overflow: 'hidden',  
     },
     taskItemContent:{
-        flex: 0.78,
+        flex: 0.899,
         width: '98%',
         flexDirection: 'column',
     },
     taskItemNameContainer:{
-        flex: 0.28,
+        flex: 0.11,
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal:'2%'
+        marginHorizontal:'2%',
     },
     taskItemIndexContainer:{
         width:'7%',
@@ -142,7 +142,7 @@ const homeScreenStyles = () => StyleSheet.create({
         color:'rgb(241, 234, 238)'
     },
     taskItemAlarmContainer:{
-        width:'3%',
+        width:'7%',
         alignItems:'center',
         justifyContent:'center'
     },
@@ -152,18 +152,19 @@ const homeScreenStyles = () => StyleSheet.create({
         resizeMode: 'contain',
     },
     taskItemDetailsContainer:{
-        flex: 0.72,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flex: 0.89,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
     },
     taskItemDetailsMainContainer:{
-        width:'49%',
-        height:'100%',
+        height:'50%',
+        width:'100%',
         alignItems:'center',
         justifyContent:'center',
         borderRadius:10,
-        backgroundColor:'rgb(39, 28, 118)'
+        borderTopWidth: 1,
+        borderTopColor: 'rgb(122, 160, 231)',
     },
     taskItemDetailsText:{
         textAlign:'center',
@@ -174,19 +175,21 @@ const homeScreenStyles = () => StyleSheet.create({
         padding:'1.5%'
     },
     taskItemImage:{
-        width: '50%',
-        height: '100%',
+        height:'50%',
+        width: '100%',
         resizeMode: 'cover',
         borderRadius: 5,
+        borderWidth:2,
+        borderColor:'black'
     },
     taskItemButtonsContainer: {
-        flex: 0.2,
+        flex: 0.1,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: 'rgb(80, 176, 32)'
+        borderTopWidth: 2,
+        borderTopColor: 'rgb(122, 160, 231)'
     },
     taskItemButton: {
         width: 40,

@@ -9,7 +9,7 @@ export const colorValues = {
     RED:'rgb(199, 47, 47)',
     ORANGE:'rgb(213, 96, 33)',
     PINK:'rgb(204, 178, 11)',
-    BLUE:'rgb(37, 77, 137)',
+    BLUE:'rgb(84, 131, 201)',
     CYAN:'rgb(40, 164, 167)',
     GREEN:'rgb(64, 177, 62)',
 };

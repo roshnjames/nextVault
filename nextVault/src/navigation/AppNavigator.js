@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, AppState, StatusBar, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import BottomMenu from '../components/BottomMenu';
@@ -61,56 +62,57 @@ const AppNavigator = () => {
                     backgroundColor={styles.statusBarStyle.backgroundColor}
                 />
                 <Header />
+                <GestureHandlerRootView>
+                    <View style={styles.safeAreaViewStyle}>
+                        <Stack.Navigator
+                            initialRouteName="home"
+                            screenOptions={{
+                                headerShown: false
+                            }}
+                        >
+                            <Stack.Screen
+                                name="home"
+                                component={HomeScreen}
+                            />
 
-                <View style={styles.safeAreaViewStyle}>
-                    <Stack.Navigator
-                        initialRouteName="home"
-                        screenOptions={{
-                            headerShown: false
-                        }}
-                    >
-                        <Stack.Screen
-                            name="home"
-                            component={HomeScreen}
+                            <Stack.Screen
+                                name="schedule"
+                                component={ScheduleScreen}
+                            />
+
+                            <Stack.Screen
+                                name="addTask"
+                                component={AddTaskScreen}
+                            />
+
+                            <Stack.Screen
+                                name="editTask"
+                                component={EditTaskScreen}
+                            />
+
+                            <Stack.Screen
+                                name="notes"
+                                component={NoteScreen}
+                            />
+
+                            <Stack.Screen
+                                name="addNote"
+                                component={AddNoteScreen}
+                            />
+
+                            <Stack.Screen
+                                name="settings"
+                                component={SettingsScreen}
+                            />
+
+                        </Stack.Navigator>
+
+                        <BottomMenu
+                            selectedTab={activeTab}
                         />
 
-                        <Stack.Screen
-                            name="schedule"
-                            component={ScheduleScreen}
-                        />
-
-                        <Stack.Screen
-                            name="addTask"
-                            component={AddTaskScreen}
-                        />
-
-                        <Stack.Screen
-                            name="editTask"
-                            component={EditTaskScreen}
-                        />
-
-                        <Stack.Screen
-                            name="notes"
-                            component={NoteScreen}
-                        />
-
-                         <Stack.Screen
-                            name="addNote"
-                            component={AddNoteScreen}
-                        />
-
-                         <Stack.Screen
-                            name="settings"
-                            component={SettingsScreen}
-                        />
-
-                    </Stack.Navigator>
-
-                    <BottomMenu
-                        selectedTab={activeTab}
-                    />
-
-                </View>
+                    </View>
+                </GestureHandlerRootView>
 
                 <Toast />
 
