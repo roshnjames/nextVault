@@ -26,10 +26,12 @@ import {
 } from '../../strings/textLoader';
 import HomeScreenStyles from "../../styles/screens/homescreen/homeScreen.styles";
 import { addTaskPriorityVals } from '../../utils/dropDownValues';
+import { useWindowDimensions } from 'react-native';
 
 
 const useHomeScreenViewModel = () => {
-    const styles = HomeScreenStyles();
+    const { height, width } = useWindowDimensions();
+    const styles = HomeScreenStyles(height, width);
     const {
         loading,
         setLoading,
@@ -175,7 +177,6 @@ const useHomeScreenViewModel = () => {
                         taskDate < one_month_limit &&
                         task.task_is_completed === 1
                     ) {
-                        console.log('iddd',task.task_id)
                         await deleteTask(task.task_id);
                     }
                 }
