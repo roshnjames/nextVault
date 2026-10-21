@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const addNoteScreenStyles = () => StyleSheet.create({
     majorContainer:{
@@ -41,7 +42,7 @@ const addNoteScreenStyles = () => StyleSheet.create({
     addNoteLabelText:{
         flex:0.3,
         width:'100%',
-        fontSize:16,
+        fontSize:scaleFontSize(15),
         fontFamily:'monospace',
         color:'rgb(32, 167, 171)',
         fontWeight:'bold',
@@ -84,7 +85,7 @@ const addNoteScreenStyles = () => StyleSheet.create({
         resizeMode: 'contain'
     },
     deleteNoteTextStyle: {
-        fontSize: 16,
+        fontSize: scaleFontSize(15),
         fontWeight: 'bold',
         color: '#c79a2aff'
     },
@@ -113,7 +114,7 @@ const addNoteScreenStyles = () => StyleSheet.create({
         resizeMode: 'contain',
     },
     noteAddButtonText:{
-        fontSize: 20,
+        fontSize: scaleFontSize(19),
         fontWeight: 'bold',
         color: '#879caaff'
     },

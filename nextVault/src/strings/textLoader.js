@@ -150,5 +150,8 @@ export const settingsScreenTexts = {
     STORAGE_PERMISSION:"Download failed\nPlease provide storage access",
     NOTIFICATION_SET_FAILED:"Failed to set Notification...",
     RESTORE_TASK_FAILED:"Failed to restore all tasks...",
-    RESTORE_NOTE_FAILED:"Failed to restore all notes..."
+    RESTORE_NOTE_FAILED:"Failed to restore all notes...",
+    PRIVACY_POLICY:"Privacy policy",
+    PRIVACY_POLICY_DETAILS:"Read the privacy policy for your data",
+    PRIVACY_POLICY_CONFIRM:"Open privacy policy in the browser?"
 };

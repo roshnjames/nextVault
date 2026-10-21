@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const headerStyles = (height,width) => StyleSheet.create({
      mainContainer:{
@@ -15,11 +16,11 @@ const headerStyles = (height,width) => StyleSheet.create({
     },
     backArrowStyle:{
         resizeMode: 'contain',
-        height: 40,
-        width: 40,
+        height: scaleFontSize(36),
+        width: scaleFontSize(36),
     },
     headerTextStyle:{
-        fontSize: 25,
+        fontSize: scaleFontSize(25),
         fontWeight: 'bold',
         color:'rgb(0, 0, 0)'
     }

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const addTaskScreenStyles = () => StyleSheet.create({
     loadingOverlay:{
@@ -65,7 +66,7 @@ const addTaskScreenStyles = () => StyleSheet.create({
         textAlign:'center',
         textAlignVertical:'center',
         fontFamily:'monospace',
-        fontSize:14,
+        fontSize:scaleFontSize(13),
         color:'cyan',
         backgroundColor:'rgb(44, 55, 108)',
         borderRadius:15,
@@ -73,7 +74,7 @@ const addTaskScreenStyles = () => StyleSheet.create({
         borderWidth:1,
     },
     addTaskScreenTextStyle:{
-        fontSize:18,
+        fontSize:scaleFontSize(17),
         fontWeight:'bold',
         color:'rgb(46, 138, 163)'
     },
@@ -84,11 +85,12 @@ const addTaskScreenStyles = () => StyleSheet.create({
         justifyContent:'center'
     },
     addTaskPicker:{
-        width:'60%'
+        width:'60%',
+        color:'rgb(32, 167, 171)'
     },
     addTaskSwitchText:{
         height:'100%',
-        fontSize:20,
+        fontSize:scaleFontSize(19),
         fontFamily:'sans-serif',
         color:'rgb(32, 167, 171)',
         fontWeight:'bold',
@@ -125,7 +127,7 @@ const addTaskScreenStyles = () => StyleSheet.create({
         borderRadius:15
     },
     addTaskBtnText:{
-        fontSize:20,
+        fontSize:scaleFontSize(19),
         fontFamily:'Times New Roman',
         fontStyle:'italic',
         fontWeight:'bold',

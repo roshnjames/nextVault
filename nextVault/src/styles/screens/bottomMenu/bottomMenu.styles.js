@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const bottomMenuStyles = () => StyleSheet.create({
     mainContainer:{
@@ -25,7 +26,7 @@ const bottomMenuStyles = () => StyleSheet.create({
 
     },
     bottomMenuTextStyle:{
-        fontSize: 12,
+        fontSize: scaleFontSize(12),
         fontWeight: 'bold',
         lineHeight: 18,
     }
