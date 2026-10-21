@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../utils/dropDownValues";
 
 const popupComponentStyles = () => StyleSheet.create({
     safeArea:{
@@ -42,7 +43,7 @@ const popupComponentStyles = () => StyleSheet.create({
     },
     popupText:{
         fontFamily:'monospace',
-        fontSize:18,
+        fontSize:scaleFontSize(17),
         color:'cyan',
         textAlign:'center'
     },
@@ -64,7 +65,7 @@ const popupComponentStyles = () => StyleSheet.create({
     },
     buttonText:{
         fontFamily:'monospace',
-        fontSize:18,
+        fontSize:scaleFontSize(17),
         color:'black'
     }
 });

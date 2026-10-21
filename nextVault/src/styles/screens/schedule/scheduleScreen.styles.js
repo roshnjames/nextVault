@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const scheduleScreenStyles = (height, width) => StyleSheet.create({
     majorContainer: {
@@ -9,6 +10,12 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    scrollStyle: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start'
     },
     calendarContainer: {
         marginVertical: height * 0.01,
@@ -22,15 +29,15 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         calendarBackground: '#2375b4ff',
         monthTextColor: '#000000ff',
         textMonthFontWeight: 'bold',
-        textMonthFontSize: 20,
+        textMonthFontSize: scaleFontSize(19),
         textSectionTitleColor: '#210d50ff',
         dayTextColor: '#43136fff',
         todayTextColor: '#0baf0eff',
         selectedDayBackgroundColor: '#1bcd21ff',
-        selectedDayTextColor: '#ffffff',
+        selectedDayTextColor: '#913b3b',
         arrowColor: '#000000ff',
-        textDayFontSize: 18,
-        textDayHeaderFontSize: 16,
+        textDayFontSize: scaleFontSize(17),
+        textDayHeaderFontSize: scaleFontSize(15),
     },
     markedDate: {
         selected: true,
@@ -62,14 +69,14 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
     dayDetailsDateText:{
         fontStyle:'normal',
         fontWeight:'bold',
-        fontSize:18,
+        fontSize:scaleFontSize(17),
         color:'rgb(18, 185, 185)',
         textAlign:'center'
     },
     dayDetailsTasksText:{
         fontStyle:'normal',
         fontWeight:'bold',
-        fontSize:16,
+        fontSize:scaleFontSize(15),
         color:'rgb(18, 124, 185)',
         textAlign:'center'
     },
@@ -96,7 +103,7 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         resizeMode: 'contain'
     },
     addTaskButtonTextStyle: {
-        fontSize: 20,
+        fontSize: scaleFontSize(19),
         fontWeight: 'bold',
         color: '#879caaff'
     },
@@ -118,7 +125,7 @@ const scheduleScreenStyles = (height, width) => StyleSheet.create({
         justifyContent: 'space-around'
     },
     lowerButtonTextStyle: {
-        fontSize: 16,
+        fontSize: scaleFontSize(15),
         fontWeight: 'bold',
         color: '#c79a2aff'
     }

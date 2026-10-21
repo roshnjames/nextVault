@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const homeScreenStyles = (height, width) => StyleSheet.create({
     majorContainer:{
@@ -36,7 +37,7 @@ const homeScreenStyles = (height, width) => StyleSheet.create({
         fontFamily:'monospace',
         fontWeight:'bold',
         fontFamily:'normal',
-        fontSize:18,
+        fontSize:scaleFontSize(17),
         color:'cyan',
         marginTop:'2%'
     },
@@ -50,19 +51,19 @@ const homeScreenStyles = (height, width) => StyleSheet.create({
     },
     filterButton:{
         width:'70%',
-        height:'60%',
+        height:'70%',
         alignItems:'center',
         justifyContent:'center',
         borderRadius:20
     },
     filterText:{
         fontFamily:'monospace',
-        fontSize:14,
+        fontSize:scaleFontSize(13),
         color:'cyan',
     },
     filterDateText:{
         fontFamily:'monospace',
-        fontSize:13,
+        fontSize:scaleFontSize(12),
         color:'cyan',
         color:'black'
     },
@@ -123,7 +124,7 @@ const homeScreenStyles = (height, width) => StyleSheet.create({
         backgroundColor:'rgba(176, 176, 176, 0.53)'
     },
     taskItemIndexText:{
-        fontSize:16,
+        fontSize:scaleFontSize(15),
         fontWeight:'bold',
         fontFamily:'monospace',
         fontStyle:'normal'
@@ -135,7 +136,7 @@ const homeScreenStyles = (height, width) => StyleSheet.create({
         justifyContent:'center'
     },
     taskItemNameText:{
-        fontSize:15,
+        fontSize:scaleFontSize(14),
         fontWeight:'bold',
         fontFamily:'monospace',
         fontStyle:'normal',
@@ -169,7 +170,7 @@ const homeScreenStyles = (height, width) => StyleSheet.create({
     taskItemDetailsText:{
         textAlign:'center',
         fontFamily:'monospace',
-        fontSize:13,
+        fontSize:scaleFontSize(12),
         fontStyle:'normal',
         color:'cyan',
         padding:'1.5%'

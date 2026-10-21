@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const settingsScreenStyles = (height,width) => StyleSheet.create({
      majorContainer:{
@@ -49,7 +50,7 @@ const settingsScreenStyles = (height,width) => StyleSheet.create({
         justifyContent:'flex-end'
     },
     itemHeaderText:{
-        fontSize:22,
+        fontSize:scaleFontSize(20),
         fontFamily:'monospace',
         color:'cyan',
         fontWeight:'condensed'
@@ -61,7 +62,7 @@ const settingsScreenStyles = (height,width) => StyleSheet.create({
         justifyContent:'center'
     },
     itemDetailsText:{
-        fontSize:12,
+        fontSize:scaleFontSize(10),
         fontFamily:'monospace',
         color:'rgb(11, 139, 167)',
         fontWeight:'400'

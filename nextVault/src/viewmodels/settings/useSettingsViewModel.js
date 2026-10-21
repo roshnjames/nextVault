@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useWindowDimensions } from "react-native";
+import { Linking, useWindowDimensions } from "react-native";
 import Toast from "react-native-toast-message";
 import { createAndSaveBackupFile, loadDataFromRestoreFile } from "../../backup/backupGeneration";
 import { TaskContext } from "../../context/taskDetails";
@@ -227,6 +227,15 @@ const useSettingsViewModel = () => {
         }
     };
 
+    const handleOpenPrivacyPolicyExternally = async() => {
+        try{
+            const privacyPolicyURL = `https://roshnjames.github.io/privacy-policy/`;
+            await Linking.openURL(privacyPolicyURL);
+        }catch(error){
+            setPopupText(commonTexts.ERROR_OCCURRED);
+        }
+    };
+
     const handleSettingsItemPress = (itemIndex) => {
         try{
             switch(itemIndex){
@@ -242,6 +251,8 @@ const useSettingsViewModel = () => {
                         break;
                 case 5: setSettingsPopupText(settingsScreenTexts.RESTORE_BACKUP_CONFIRM);
                         break;
+                case 6: setSettingsPopupText(settingsScreenTexts.PRIVACY_POLICY_CONFIRM);
+                        break;
                 default: setSettingsPopupText(settingsScreenTexts.RETRY);
                         break;
             };
@@ -256,7 +267,6 @@ const useSettingsViewModel = () => {
         try{
             setPopupText('');
             setLoading(true);
-            console.log('left button pressed => \n',selectedItem);
              switch(selectedItem){
                 case 1: await handleDeleteAllNotifications();
                         break;
@@ -270,11 +280,13 @@ const useSettingsViewModel = () => {
                         break;
                 case 6: await handleRestoreAllDataFromBackup();
                         break;
+                case 7: await handleOpenPrivacyPolicyExternally();
+                        break;
                 // default: throw new Error(commonTexts.ERROR_SOMETHING);
             };
         }finally{
             setLoading(false);
-            setPopupVisible(true);
+            (selectedItem !== 7) && setPopupVisible(true);
         }
     };
 

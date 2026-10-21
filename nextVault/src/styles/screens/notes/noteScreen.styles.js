@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleFontSize } from "../../../utils/dropDownValues";
 
 const noteScreenStyles = () => StyleSheet.create({
     majorContainer:{
@@ -36,7 +37,7 @@ const noteScreenStyles = () => StyleSheet.create({
         alignItems:'flex-start',
     },
     searchInputText:{
-        fontSize:15,
+        fontSize:scaleFontSize(14),
         fontFamily:'monospace',
         color:'cyan',
     },
@@ -86,7 +87,7 @@ const noteScreenStyles = () => StyleSheet.create({
         alignItems:'center',
     },
     noteItemIndexText:{
-        fontSize:25,
+        fontSize:scaleFontSize(24),
         fontWeight:'bold',
         fontFamily:'monospace',
         fontStyle:'normal'
@@ -108,7 +109,7 @@ const noteScreenStyles = () => StyleSheet.create({
         paddingLeft:'5%'
     },
     noteItemContentHeaderText:{
-        fontSize:15,
+        fontSize:scaleFontSize(14),
         fontWeight:'bold',
         fontFamily:'monospace',
         fontStyle:'normal'
@@ -124,7 +125,7 @@ const noteScreenStyles = () => StyleSheet.create({
         paddingTop:'3%',
     },
     noteItemContentItemText:{
-        fontSize:14,
+        fontSize:scaleFontSize(13),
         fontWeight:'black',
         fontStyle:'normal'
     },
@@ -148,7 +149,7 @@ const noteScreenStyles = () => StyleSheet.create({
         resizeMode: 'contain',
     },
     noteAddButtonText:{
-        fontSize: 20,
+        fontSize: scaleFontSize(19),
         fontWeight: 'bold',
         color: '#879caaff'
     }
