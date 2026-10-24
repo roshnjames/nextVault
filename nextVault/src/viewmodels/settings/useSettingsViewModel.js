@@ -8,7 +8,7 @@ import { cancelAllScheduledNotifications, scheduleTaskNotification } from "../..
 import { generateDataPDF } from "../../pdf/pdfGenerator";
 import { commonTexts, settingsScreenTexts } from "../../strings/textLoader";
 import settingsScreenStyles from "../../styles/screens/settings/settingsScreen.styles";
-import { settingsScreenContentList } from "../../utils/dropDownValues";
+import { EXTERNAL_LINKS, settingsScreenContentList } from "../../utils/dropDownValues";
 
 const useSettingsViewModel = () => {
     const { setHeader, setLoading, popupText, setPopupText, popupVisible, setPopupVisible } = useContext(TaskContext);
@@ -30,7 +30,6 @@ const useSettingsViewModel = () => {
             }
             await cancelAllScheduledNotifications();
             const deleteRes = await deleteAllNotifications();
-            console.log('[[[[',deleteRes,validNotificationIds)
             if (!deleteRes || deleteRes < validNotificationIds?.length) {
                 throw new Error('failed');
             }
@@ -96,7 +95,6 @@ const useSettingsViewModel = () => {
             const taskPdfGenerated = await generateDataPDF(currentTasks,currentNotes);
             if (!taskPdfGenerated) throw new Error(commonTexts.FAILED);
 
-            console.log('pdf location : ',taskPdfGenerated);
             setPopupText(settingsScreenTexts.PDF_DOWNLOAD_SUCCESS);
             return true;
         }catch(error){
@@ -179,6 +177,7 @@ const useSettingsViewModel = () => {
                         const task_notification_id = await scheduleTaskNotification(
                             newTaskId,
                             taskContent.task_name,
+                            taskContent.task_details,
                             taskContent.task_date,
                             taskContent.task_time
                         );
@@ -229,7 +228,7 @@ const useSettingsViewModel = () => {
 
     const handleOpenPrivacyPolicyExternally = async() => {
         try{
-            const privacyPolicyURL = `https://roshnjames.github.io/privacy-policy/`;
+            const privacyPolicyURL = EXTERNAL_LINKS.PRIVACY_POLICY;
             await Linking.openURL(privacyPolicyURL);
         }catch(error){
             setPopupText(commonTexts.ERROR_OCCURRED);
@@ -241,7 +240,7 @@ const useSettingsViewModel = () => {
             switch(itemIndex){
                 case 0: setSettingsPopupText(settingsScreenTexts.DELETE_ALL_NOTIFICATIONS_CONFIRM);
                         break;
-                case 1: setSettingsPopupText(settingsScreenTexts.DELETE_ALL_NOTIFICATIONS_CONFIRM);
+                case 1: setSettingsPopupText(settingsScreenTexts.DELETE_ALL_TASKS_CONFIRM);
                         break;
                 case 2: setSettingsPopupText(settingsScreenTexts.DELETE_ALL_NOTES_CONFIRM);
                         break;
@@ -282,7 +281,8 @@ const useSettingsViewModel = () => {
                         break;
                 case 7: await handleOpenPrivacyPolicyExternally();
                         break;
-                // default: throw new Error(commonTexts.ERROR_SOMETHING);
+                default: setPopupText(commonTexts.ERROR_SOMETHING);
+                        break;
             };
         }finally{
             setLoading(false);

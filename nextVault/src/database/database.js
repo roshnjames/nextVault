@@ -1,15 +1,15 @@
 import * as SQLite from 'expo-sqlite';
 
-let db = null;
-
+let dbPromise = null;
 const createDatabase = async () => {
-    console.log('createDatabase called...');
-    if (!db) {
-        console.log('DATABASE NOT CREATED, CREATING NOW...');
-        db = await SQLite.openDatabaseAsync('nextvault_data.db');
+    if (!dbPromise) {
+        dbPromise = SQLite.openDatabaseAsync('nextvault_data.db')
+            .catch((error) => {
+                dbPromise = null;
+                throw error;
+            });
     }
-    console.log('RETURNING DB INSTANCE...');
-    return db;
+    return dbPromise;
 };
 
 export const initDatabase = async () => {
@@ -40,7 +40,6 @@ export const initDatabase = async () => {
             );
         `);
 
-        console.log('db and table created');
     } catch (error) {
         throw error;
     }
@@ -73,11 +72,8 @@ export const insertNewTask = async (taskData) => {
             taskData.task_notification_id
         );
 
-        console.log('task inserted:', result);
-
         return result;
     } catch (error) {
-        console.error('Task insertion error:', error);
         throw error;
     }
 };
@@ -90,7 +86,6 @@ export const fetchAllTasks = async (table_name = 'next_tasks') => {
             `SELECT * FROM ${table_name}`
         );
 
-        console.log('data fetched: \n',JSON.stringify(result))
         return result || [];
     } catch (error) {
         throw error;
