@@ -17,7 +17,7 @@ export const requestNotificationPermission = async() => {
             await Notifications.setNotificationChannelAsync(
                 'task-notification',
                 { 
-                    name: 'Task Reminders', 
+                    name: 'Tracker Notification', 
                     importance: Notifications.AndroidImportance.MAX, 
                     vibrationPattern: [0, 250, 250, 250], 
                     enableVibrate: true,
@@ -37,13 +37,12 @@ export const requestNotificationPermission = async() => {
 
         return finalPermission === 'granted';
     }catch(error){
-        console.error('error occurred in notification permission',error);
         return false;
     }
 };
 
 
-export const scheduleTaskNotification = async(task_id,name,date,time) => {
+export const scheduleTaskNotification = async(task_id,name,details,date,time) => {
     try{
         if(!date || !time) return false;
 
@@ -63,8 +62,8 @@ export const scheduleTaskNotification = async(task_id,name,date,time) => {
 
         const notificationId = await Notifications.scheduleNotificationAsync({
                 content: {
-                    title: 'Upcoming activity',
-                    body: name,
+                    title: name.length > 15 ? `${name.slice(0,14)}...` : name,
+                    body: details.length > 15 ? `${details.slice(0,14)}...` : details,
                     sound: true,
                     data: { taskId: task_id },
                 },
@@ -77,7 +76,6 @@ export const scheduleTaskNotification = async(task_id,name,date,time) => {
 
         return notificationId || false;
     }catch(error){
-        console.log('erorro',error);
         throw error;
     }
 };

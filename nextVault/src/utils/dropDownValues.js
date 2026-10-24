@@ -30,3 +30,7 @@ export const settingsScreenContentList = [
     {value : 0, label : settingsScreenTexts.DEV_INFO, details: settingsScreenTexts.DEV_INFO_DETAILS},
 ];
 
+export const EXTERNAL_LINKS = {
+    PRIVACY_POLICY : `https://roshnjames.github.io/privacy-policy/`,
+};
+

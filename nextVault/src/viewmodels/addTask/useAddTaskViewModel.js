@@ -200,6 +200,7 @@ const useAddTaskViewModel = ({ route }) => {
                     const task_notification_id = await scheduleTaskNotification(
                         new_task_id.current,
                         newTaskCreated.current.task_name,
+                        newTaskCreated.current.task_details,
                         newTaskCreated.current.task_date,
                         newTaskCreated.current.task_time
                     );

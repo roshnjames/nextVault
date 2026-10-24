@@ -168,7 +168,7 @@ const useEditTaskViewModel = (params) => {
                     updatedNotificationId.current = '-'
                 }
                 if (t_alarm) {
-                    updatedNotificationId.current = await scheduleTaskNotification(taskId, t_name, t_date, t_time);
+                    updatedNotificationId.current = await scheduleTaskNotification(taskId, t_name, t_details, t_date, t_time);
                 }
 
             };
